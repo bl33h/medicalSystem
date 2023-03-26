@@ -12,7 +12,7 @@ class SignupWindow:
         etiPassword = Label(self.win, text="Password")
         inputPassword = Entry(self.win)
         
-        buttonSignup = Button(self.win, text="Signup")
+        buttonSignup = Button(self.win, text="Signup", command= lambda: self.checkSignUp(inputPassword, inputUsername))
         
         etiUsername.pack()
         inputUsername.pack()
@@ -21,4 +21,13 @@ class SignupWindow:
         buttonSignup.pack()
 
         self.win.geometry("300x200")
-        self.win.mainloop()
+        
+    def checkSignUp(self,inputPassword, inputUsername):
+        print("Username: " + inputUsername.get())
+        print("Password: " + inputPassword.get())
+        self.close()
+    
+    def close(self):
+        self.win.destroy()
+        
+        
