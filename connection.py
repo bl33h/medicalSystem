@@ -11,7 +11,10 @@ def connect(query):
         sqlquey = query
         
         cur.execute(sqlquey)
-        results = cur.fetchall()
+        try:
+            results = cur.fetchall()
+        except:
+            results = ""
         
         conn.commit()
         cur.close()
