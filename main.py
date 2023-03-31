@@ -1,5 +1,5 @@
 from tkinter import *
-from signUp import SignupWindow
+from signup import SignupWindow
 from expediente import ExpedienteWindow
 import connection as con
 
