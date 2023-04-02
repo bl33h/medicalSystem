@@ -26,18 +26,24 @@ class SignupWindow:
         
     def checkSignUp(self,inputPassword, inputUsername):
         valor = False
+        errorPassword = False
+        errorUser = False
         
         valor = self.checkLongitud(inputPassword.get())
         if(valor == True):
             mensaje = "La contraseña es muy larga el máximo es de 50 caracteres o esta vacio"
             ErrorMessage(self.win, mensaje=mensaje)
+            errorPassword = True
+            
             
         valor = self.checkLongitud(inputUsername.get())
         if(valor == True):
             mensaje = "El username es muy largo el máximo es de 50 caracteres o esta vacio"
             ErrorMessage(self.win, mensaje=mensaje)
+            errorUser = True
         
-        self.insertValues(inputPassword, inputUsername)
+        if (errorPassword == False and errorUser == False):
+            self.insertValues(inputPassword, inputUsername)
     
     def checkLongitud(self, cadena):
         valor = False
@@ -47,9 +53,14 @@ class SignupWindow:
         return valor
     
     def insertValues(self, inputPassword, inputUsername):
-        #results = con.connect(r"""insert into usuarios values('angel','18sep2002');""")
-        results = con.connect(r"""insert into usuarios values('233','18sep2002');""")
-        self.close()
+        query = r"""insert into usuarios values('""" + inputUsername.get() + r"""','""" + inputPassword.get() + r"""');"""
+        results = con.connect(query)
+        if (results == ""):
+            mensaje = "Se ha registrado correctamente"
+            ErrorMessage(self.win, mensaje=mensaje)
+        else:
+            mensaje = "El usuario y contrasena ya existen"
+            ErrorMessage(self.win, mensaje=mensaje)
     
     def close(self):
         self.win.destroy()
