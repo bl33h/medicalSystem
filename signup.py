@@ -1,5 +1,6 @@
 from tkinter import *
 from errorMessage import ErrorMessage
+from ingresoMedico import IngresoMedico
 import connection as con
 
 class SignupWindow:
@@ -14,17 +15,24 @@ class SignupWindow:
         etiPassword = Label(self.win, text="Password")
         inputPassword = Entry(self.win)
         
-        buttonSignup = Button(self.win, text="Signup", command= lambda: self.checkSignUp(inputPassword, inputUsername))
+        etiIdEstablecimiento = Label(self.win, text="Id Establecimiento")
+        inputIdEstablecionto = Entry(self.win)
+        
+        buttonSignup = Button(self.win, text="Signup", command= lambda: self.checkSignUp(inputPassword, inputUsername, inputIdEstablecionto))
+        buttonClose = Button(self.win, text="Close", command= lambda: self.close())
         
         etiUsername.pack()
         inputUsername.pack()
         etiPassword.pack()
         inputPassword.pack()
+        etiIdEstablecimiento.pack()
+        inputIdEstablecionto.pack()
         buttonSignup.pack()
+        buttonClose.pack()
 
         self.win.geometry("300x200")
         
-    def checkSignUp(self,inputPassword, inputUsername):
+    def checkSignUp(self,inputPassword, inputUsername, inputIdEstablecimiento):
         valor = False
         errorPassword = False
         errorUser = False
@@ -43,7 +51,7 @@ class SignupWindow:
             errorUser = True
         
         if (errorPassword == False and errorUser == False):
-            self.insertValues(inputPassword, inputUsername)
+            self.insertValues(inputPassword, inputUsername, inputIdEstablecimiento)
     
     def checkLongitud(self, cadena):
         valor = False
@@ -52,14 +60,16 @@ class SignupWindow:
             valor = True
         return valor
     
-    def insertValues(self, inputPassword, inputUsername):
-        query = r"""insert into usuarios values('""" + inputUsername.get() + r"""','""" + inputPassword.get() + r"""');"""
+    def insertValues(self, inputPassword, inputUsername, inputIdEstablecimiento):
+        query = r"""insert into usuarios values ('""" + inputUsername.get() + r"""', '""" + inputPassword.get() + r"""', '""" + inputIdEstablecimiento.get() + r"""');"""
         results = con.connect(query)
         if (results == ""):
             mensaje = "Se ha registrado correctamente"
             ErrorMessage(self.win, mensaje=mensaje)
+            IngresoMedico(self.win)
+            
         else:
-            mensaje = "El usuario y contrasena ya existen"
+            mensaje = "El usuario y contrasena ya existen, o verifique que el id del establecimiento sea correcto"
             ErrorMessage(self.win, mensaje=mensaje)
     
     def close(self):
