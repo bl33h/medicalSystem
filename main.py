@@ -1,5 +1,6 @@
 from tkinter import *
 from signup import SignupWindow
+from tkinter import messagebox
 from expediente import ExpedienteWindow
 import connection as con
 
@@ -37,11 +38,20 @@ def principalWindow():
 def signUp(win):
     SignupWindow(win)
     
-def login(inputPassword, inputUsername, win):
-    if (inputPassword.get() == "123" and inputUsername.get() == "123"):
-        ExpedienteWindow(win)
-
-
+# Login function
+def login(inputUsername, inputPassword, win):
+    usuario = inputUsername.get()
+    contrasena = inputPassword.get()
+    query = f"SELECT COUNT(*) FROM usuarios WHERE usuario='{usuario}' AND contrasena='{contrasena}'" # Query
+    results = con.connect(query)
     
+    # None type data verification
+    if results is not None and results[0][0] == 1:
+        ExpedienteWindow(win)
+        
+    # Error message if credentials do not match
+    else:
+        messagebox.showerror("Error de inicio de sesión", "Usuario o contraseña incorrectos")
+
 if __name__ == '__main__':
     main()
