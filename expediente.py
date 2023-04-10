@@ -1,4 +1,6 @@
 from tkinter import *
+import connection as con
+from resultadosExpediente import ResultadoExpediente
 
 class ExpedienteWindow:
     def __init__(self, parent):
@@ -6,27 +8,24 @@ class ExpedienteWindow:
         self.win = Toplevel(parent)
         self.win.title("Expediente")
         
-        etiNombrePaciente = Label(self.win, text="Nombre del paciente")
-        etiCodigopaciente = Label(self.win, text="Codigo del paciente")
+        etiIdPaciente = Label(self.win, text="Id del paciente")
         
-        inputNombrePaciente = Entry(self.win)
-        inputCodigoPaciente = Entry(self.win)
+        inputIdPaciente = Entry(self.win)
         
-        buttonBuscar = Button(self.win, text="Buscar", command= lambda: self.buscarPaciente(inputNombrePaciente, inputCodigoPaciente))
+        buttonBuscar = Button(self.win, text="Buscar", command= lambda: self.buscarPaciente(inputIdPaciente))
         
-        etiNombrePaciente.pack()
-        inputNombrePaciente.pack()
-        etiCodigopaciente.pack()
-        inputCodigoPaciente.pack()
+        etiIdPaciente.pack()
+        inputIdPaciente.pack()
         buttonBuscar.pack()
         
         
         self.win.geometry("300x200")
         
-    def buscarPaciente(self,inputNombrePaciente, inputCodigoPaciente):
-        etiNombreResultado = Label(self.win, text=inputNombrePaciente.get())
-        etiCodigoResultado = Label(self.win, text=inputCodigoPaciente.get())
+    def buscarPaciente(self, inputIdPaciente):
+        query = f"SELECT * FROM paciente p WHERE p.dpi = '{inputIdPaciente.get()}'"
+        results = con.connect(query)
+        column_names = con.column_names(query)
+        ResultadoExpediente(self.win, results, column_names)
+    
         
-        etiNombreResultado.pack()
-        etiCodigoResultado.pack()
         
