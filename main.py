@@ -1,5 +1,4 @@
 from tkinter import *
-from signup import SignupWindow
 from tkinter import messagebox
 from expediente import ExpedienteWindow
 import connection as con
@@ -21,20 +20,15 @@ def principalWindow():
     inputPassword = Entry(win)
     
     buttonLogin = Button(win, text="Login", command= lambda: login(inputPassword, inputUsername, win))
-    buttonSignup = Button(win, text="Signup", command= lambda: signUp(win))
     
     etiUsername.pack()
     inputUsername.pack()
     etiPassword.pack()
     inputPassword.pack()
     buttonLogin.pack()
-    buttonSignup.pack()
 
     win.geometry("300x200")
     win.mainloop()
-    
-def signUp(win):
-    SignupWindow(win)
     
 # Login function
 def login(inputUsername, inputPassword, win):
@@ -45,7 +39,7 @@ def login(inputUsername, inputPassword, win):
     
     # None type data verification
     if results is not None and results[0][0] == 1:
-        ExpedienteWindow(win)
+        ExpedienteWindow(win, True) #hay que ver como se implementa el rol de admin
         
     # Error message if credentials do not match
     else:

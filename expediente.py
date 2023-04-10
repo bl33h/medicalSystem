@@ -1,9 +1,10 @@
 from tkinter import *
 import connection as con
 from resultadosExpediente import ResultadoExpediente
+from signup import SignupWindow
 
 class ExpedienteWindow:
-    def __init__(self, parent):
+    def __init__(self, parent, administrador):
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Expediente")
@@ -13,11 +14,16 @@ class ExpedienteWindow:
         inputIdPaciente = Entry(self.win)
         
         buttonBuscar = Button(self.win, text="Buscar", command= lambda: self.buscarPaciente(inputIdPaciente))
-        
+
+        buttonCrearUsuario = Button(self.win, text="Crear Usuario", command= lambda: SignupWindow(self.win))
+        buttonEditarUsuario = Button(self.win, text="Editar Usuario", command= lambda: self.editarUsuario(inputIdPaciente))
+            
         etiIdPaciente.pack()
         inputIdPaciente.pack()
         buttonBuscar.pack()
-        
+        if (administrador == True):
+            buttonCrearUsuario.pack()
+            buttonEditarUsuario.pack()
         
         self.win.geometry("300x200")
         
