@@ -6,8 +6,6 @@ import connection as con
 
 
 def main():
-    results = con.connect(r"""select * from prueba;""")
-    print(results)
     principalWindow()
    
    
