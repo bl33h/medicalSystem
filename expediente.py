@@ -2,6 +2,7 @@ from tkinter import *
 import connection as con
 from resultadosExpediente import ResultadoExpediente
 from bodega import Bodega
+from editarInfoUsuario import EditarInfoUsuario
 
 class ExpedienteWindow:
     def __init__(self, parent, administrador, encargado_bodega):
@@ -16,7 +17,7 @@ class ExpedienteWindow:
         
         buttonBuscar = Button(self.win, text="Buscar", command= lambda: self.buscarPaciente(inputIdPaciente))
 
-        buttonEditarUsuario = Button(self.win, text="Editar Usuario", command= lambda: self.editarUsuario(inputIdPaciente))
+        buttonEditarUsuario = Button(self.win, text="Editar Usuario", command= lambda: EditarInfoUsuario(self.win))
         buttonEncargadoBodega = Button(self.win, text="Encargado Bodega", command= lambda: Bodega())
         
         if (encargado_bodega == True):
