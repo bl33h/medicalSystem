@@ -36,10 +36,13 @@ def login(inputUsername, inputPassword, win):
     contrasena = inputPassword.get()
     query = f"SELECT COUNT(*) FROM usuarios WHERE usuario='{usuario}' AND contrasena='{contrasena}'" # Query
     results = con.connect(query)
+    query2 = f"SELECT administrador FROM usuarios WHERE usuario='{usuario}' AND contrasena='{contrasena}'"
+    results2 = con.connect(query2)
+    results2 = results2[0][0]
     
     # None type data verification
     if results is not None and results[0][0] == 1:
-        ExpedienteWindow(win, True) #hay que ver como se implementa el rol de admin
+        ExpedienteWindow(win, results2) #hay que ver como se implementa el rol de admin
         
     # Error message if credentials do not match
     else:
