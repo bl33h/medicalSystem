@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 from expediente import ExpedienteWindow
 import connection as con
+from signup import SignupWindow
 
 
 def main():
@@ -20,12 +21,14 @@ def principalWindow():
     inputPassword = Entry(win)
     
     buttonLogin = Button(win, text="Login", command= lambda: login(inputPassword, inputUsername, win))
+    buttonCrearUsuario = Button(win, text="Crear Usuario", command= lambda: SignupWindow(win))
     
     etiUsername.pack()
     inputUsername.pack()
     etiPassword.pack()
     inputPassword.pack()
     buttonLogin.pack()
+    buttonCrearUsuario.pack()
 
     win.geometry("300x200")
     win.mainloop()
