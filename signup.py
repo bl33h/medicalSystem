@@ -18,7 +18,11 @@ class SignupWindow:
         etiIdEstablecimiento = Label(self.win, text="Id Establecimiento")
         inputIdEstablecionto = Entry(self.win)
         
-        buttonSignup = Button(self.win, text="Signup", command= lambda: self.checkSignUp(inputPassword, inputUsername, inputIdEstablecionto))
+        etiEsEncargado = Label(self.win, text = "Es encargado de bodega")
+        esEncargado = IntVar()
+        checkBoxEncargado = Checkbutton(self.win, variable=esEncargado)
+        
+        buttonSignup = Button(self.win, text="Signup", command= lambda: self.checkSignUp(inputPassword, inputUsername, inputIdEstablecionto, esEncargado))
         buttonClose = Button(self.win, text="Close", command= lambda: self.close())
         
         etiUsername.pack()
@@ -27,12 +31,14 @@ class SignupWindow:
         inputPassword.pack()
         etiIdEstablecimiento.pack()
         inputIdEstablecionto.pack()
+        etiEsEncargado.pack()
+        checkBoxEncargado.pack()
         buttonSignup.pack()
         buttonClose.pack()
 
         self.win.geometry("300x200")
         
-    def checkSignUp(self,inputPassword, inputUsername, inputIdEstablecimiento):
+    def checkSignUp(self,inputPassword, inputUsername, inputIdEstablecimiento, esEncargado):
         valor = False
         errorPassword = False
         errorUser = False
@@ -51,7 +57,7 @@ class SignupWindow:
             errorUser = True
         
         if (errorPassword == False and errorUser == False):
-            self.insertValues(inputPassword, inputUsername, inputIdEstablecimiento)
+            self.insertValues(inputPassword, inputUsername, inputIdEstablecimiento, esEncargado)
     
     def checkLongitud(self, cadena):
         valor = False
@@ -60,13 +66,17 @@ class SignupWindow:
             valor = True
         return valor
     
-    def insertValues(self, inputPassword, inputUsername, inputIdEstablecimiento):
-        query = r"""insert into usuarios values ('""" + inputUsername.get() + r"""', '""" + inputPassword.get() + r"""', '""" + inputIdEstablecimiento.get() + r"""');"""
+    def insertValues(self, inputPassword, inputUsername, inputIdEstablecimiento, esEncargado):
+        esEncargadoQuery = "false"
+        if (esEncargado.get() == 1):
+            esEncargadoQuery = "true"
+        query = f"INSERT INTO public.usuarios (usuario, contrasena, id_establecimiento, administrador, encargado_bodega) VALUES('{inputPassword.get()}', '{inputUsername.get()}', '{inputIdEstablecimiento.get()}', 'false', '{esEncargadoQuery}');"
         results = con.connect(query)
         if (results == ""):
             mensaje = "Se ha registrado correctamente"
             ErrorMessage(self.win, mensaje=mensaje)
-            IngresoMedico(self.win)
+            if (esEncargado.get() == 0):
+                IngresoMedico(self.win)
             
         else:
             mensaje = "El usuario y contrasena ya existen, o verifique que el id del establecimiento sea correcto"

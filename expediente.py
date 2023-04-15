@@ -1,12 +1,14 @@
 from tkinter import *
 import connection as con
 from resultadosExpediente import ResultadoExpediente
+from bodega import Bodega
 
 class ExpedienteWindow:
-    def __init__(self, parent, administrador):
+    def __init__(self, parent, administrador, encargado_bodega):
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Expediente")
+        
         
         etiIdPaciente = Label(self.win, text="Id del paciente")
         
@@ -15,12 +17,17 @@ class ExpedienteWindow:
         buttonBuscar = Button(self.win, text="Buscar", command= lambda: self.buscarPaciente(inputIdPaciente))
 
         buttonEditarUsuario = Button(self.win, text="Editar Usuario", command= lambda: self.editarUsuario(inputIdPaciente))
-            
-        etiIdPaciente.pack()
-        inputIdPaciente.pack()
-        buttonBuscar.pack()
+        buttonEncargadoBodega = Button(self.win, text="Encargado Bodega", command= lambda: Bodega())
+        
+        if (encargado_bodega == True):
+            buttonEncargadoBodega.pack()
+        elif (encargado_bodega == False):   
+            etiIdPaciente.pack()
+            inputIdPaciente.pack()
+            buttonBuscar.pack()
         if (administrador == True):
             buttonEditarUsuario.pack()
+            buttonEncargadoBodega.pack()
         
         self.win.geometry("300x200")
         
