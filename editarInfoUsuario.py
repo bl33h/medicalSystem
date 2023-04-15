@@ -29,7 +29,7 @@ class EditarInfoUsuario:
         inputContrasena.pack()
         buttonBuscarRegistro.pack()
         
-        self.win.geometry("600x800")
+        self.win.geometry("600x700")
         
     def buscarUsuario(self, inputIdUsuario):
         for widget in self.widget_list_dataPersonal:

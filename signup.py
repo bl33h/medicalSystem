@@ -36,7 +36,7 @@ class SignupWindow:
         buttonSignup.pack()
         buttonClose.pack()
 
-        self.win.geometry("300x200")
+        self.win.geometry("400x300")
         
     def checkSignUp(self,inputPassword, inputUsername, inputIdEstablecimiento, esEncargado):
         valor = False

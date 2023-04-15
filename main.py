@@ -30,7 +30,7 @@ def principalWindow():
     buttonLogin.pack()
     buttonCrearUsuario.pack()
 
-    win.geometry("300x200")
+    win.geometry("300x250")
     win.mainloop()
     
 # Login function

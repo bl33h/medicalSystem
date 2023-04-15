@@ -30,7 +30,7 @@ class ExpedienteWindow:
             buttonEditarUsuario.pack()
             buttonEncargadoBodega.pack()
         
-        self.win.geometry("300x200")
+        self.win.geometry("400x300")
         
     def buscarPaciente(self, inputIdPaciente):
         query = f"SELECT * FROM paciente p WHERE p.dpi = '{inputIdPaciente.get()}'"
