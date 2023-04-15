@@ -33,7 +33,7 @@ class ExpedienteWindow:
         self.win.geometry("400x300")
         
     def buscarPaciente(self, inputIdPaciente):
-        query = f"SELECT * FROM paciente p WHERE p.dpi = '{inputIdPaciente.get()}'"
+        query = f"select * from informacion_paciente('{inputIdPaciente.get()}')"
         results = con.connect(query)
         column_names = con.column_names(query)
         ResultadoExpediente(self.win, results, column_names)
