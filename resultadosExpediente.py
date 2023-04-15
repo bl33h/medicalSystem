@@ -15,9 +15,19 @@ class ResultadoExpediente:
         for i in range(len(results)):
             listResults = list(results[i])
         
+        keys = [] #Permite tener valores repetidos en el diccionario
         for i in range(len(listResults)):
-            dicResults[listResults[i]] = Entry(self.win)
-            dicResults[listResults[i]].insert(0, listResults[i]) # Inserta el valor en el Entry
+            key = listResults[i]
+            while (key in dicResults):
+                key = key + "1"
+            dicResults[key] = Entry(self.win)
+            dicResults[key].insert(0, listResults[i]) # Inserta el valor en el Entry
+            keys.append(key)
+        
+        if (len(listResults) == len(column_names)):
+            for i in range(len(column_names)):
+                dicLabels[column_names[i]].pack()
+                dicResults[keys[i]].pack()
             
             
         if (len(listResults) == len(column_names)):
