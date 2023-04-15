@@ -41,11 +41,17 @@ def login(inputUsername, inputPassword, win):
     results = con.connect(query)
     query2 = f"SELECT administrador FROM usuarios WHERE usuario='{usuario}' AND contrasena='{contrasena}'"
     results2 = con.connect(query2)
-    results2 = results2[0][0]
+    query3 = f"SELECT encargado_bodega FROM usuarios WHERE usuario='{usuario}' AND contrasena='{contrasena}'"
+    results3 = con.connect(query3)
+    try:
+        results2 = results2[0][0]
+        results3 = results3[0][0]
+    except:
+        pass
     
     # None type data verification
     if results is not None and results[0][0] == 1:
-        ExpedienteWindow(win, results2) #hay que ver como se implementa el rol de admin
+        ExpedienteWindow(win, results2, results3)
         
     # Error message if credentials do not match
     else:
