@@ -4,7 +4,7 @@ class ErrorMessage:
     def __init__(self, parent, mensaje):
         self.parent = parent
         self.win = Toplevel(parent)
-        self.win.title("Signup")
+        self.win.title("Error")
         
         etiError = Label(self.win, text=mensaje)
         buttonSalir = Button(self.win, text="Salir", command= lambda: self.close())
