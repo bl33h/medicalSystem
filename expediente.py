@@ -4,6 +4,7 @@ from resultadosExpediente import ResultadoExpediente
 from bodega import Bodega
 from editarInfoUsuario import EditarInfoUsuario
 from errorMessage import ErrorMessage
+from InfoPaciente import infoPaciente
 
 class ExpedienteWindow:
     def __init__(self, parent, administrador, encargado_bodega):
@@ -18,6 +19,8 @@ class ExpedienteWindow:
         
         buttonBuscar = Button(self.win, text="Buscar", command= lambda: self.buscarPaciente(inputIdPaciente))
 
+        buttonInfoPaciente = Button(self.win, text="Información de paciente", command= lambda: infoPaciente(self.win))
+
         buttonEditarUsuario = Button(self.win, text="Editar Usuario", command= lambda: EditarInfoUsuario(self.win))
         buttonEncargadoBodega = Button(self.win, text="Encargado Bodega", command= lambda: Bodega(self.win))
         
@@ -27,9 +30,11 @@ class ExpedienteWindow:
             etiIdPaciente.pack()
             inputIdPaciente.pack()
             buttonBuscar.pack()
+            buttonInfoPaciente.pack
         if (administrador == True):
             buttonEditarUsuario.pack()
             buttonEncargadoBodega.pack()
+            buttonInfoPaciente.pack()
         
         self.win.geometry("400x300")
         
