@@ -1,6 +1,7 @@
 from tkinter import *
 import connection as con
 from errorMessage import ErrorMessage
+from datetime import datetime
 
 class Bodega:
     def __init__(self, parent):
@@ -26,7 +27,7 @@ class Bodega:
         
         self.widget_list_dataPersonal = []
         
-        etiInformacion = Label(second_frame, text="Ingrese los valores de cada campo, si no desea utilizar ese filtro deje el campo vacio")
+        etiInformacion = Label(second_frame, text="Ingrese los valores de cada campo, si no desea utilizar ese filtro deje el campo vacio\nIngrese la cantidad de insumos que desea agregar")
         etiInformacion.grid(row=0, column=1)
         
         etiIdEstablecimiento = Label(second_frame, text="Id Establecimiento")
@@ -59,6 +60,7 @@ class Bodega:
         queryResults = f"select * from editar_insumos('{inputIdInsumo.get()}','{inputIdEstablecimiento.get()}');"
         column_names = con.column_names(queryColumn) # Obtener los nombres de las columnas
         results = con.connect(queryResults) # Obtener los valores de las columnas
+        cantidadAnteriorInsumos = 0
         
         for i in range(len(column_names)):
             dicLabels[column_names[i]] = Label(second_frame, text=column_names[i].capitalize())
@@ -76,6 +78,8 @@ class Bodega:
                 while (key in dicResults):
                     key = str(key) + "1"
                 dicResults[key] = Entry(second_frame)
+                if(i == 0):
+                    cantidadAnteriorInsumos =  int(listResults[i])
                 dicResults[key].insert(0, listResults[i]) # Inserta el valor en el Entry
                 keys.append(key)
             
@@ -89,6 +93,17 @@ class Bodega:
                     contador += 1
                     self.widget_list_dataPersonal.append(dicLabels[column_names[i]])
                     self.widget_list_dataPersonal.append(dicResults[keys[i]])
+        buttonEnviar = Button(second_frame, text="Enviar datos", command= lambda: EnviarDatos(dicResults[keys[0]].get(), cantidadAnteriorInsumos, listResults[1], inputIdEstablecimiento, inputIdInsumo))
+        buttonEnviar.grid(row=contador, column=1)
+        self.widget_list_dataPersonal.append(buttonEnviar)
+        
+        def EnviarDatos(nuevoInsumo, cantidadAnteriorInsumos, fechaAnterior, inputIdEstablecimiento, inputIdInsumo):
+            insumos = int(nuevoInsumo) + int(cantidadAnteriorInsumos)
+            queryResults = f"update establecimiento_posee_insumos set cantidad = {insumos} , fecha_de_vencimiento = '{fechaAnterior}' where id_establecimiento = '{inputIdEstablecimiento.get()}'and id_insumo = '{inputIdInsumo.get()}';"
+            results = con.connect(queryResults)
+            if(results == ""):
+                mensaje = "Ingresado con exito"
+                ErrorMessage(self.win, mensaje)
     
     def buscarRegistro(self, inputIdEstablecimiento, inputIdInsumo, second_frame, contador):
         for widget in self.widget_list_dataPersonal:
