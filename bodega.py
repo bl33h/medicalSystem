@@ -7,6 +7,10 @@ class Bodega:
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Bodega")
+        
+        scrollbar = Scrollbar(self.win)
+        scrollbar.pack(side=RIGHT, fill=Y)
+        
         self.widget_list_dataPersonal = []
         
         etiInformacion = Label(self.win, text="Ingrese los valores de cada campo, si no desea utilizar ese filtro deje el campo vacio")
@@ -93,10 +97,10 @@ class Bodega:
                 etiNoResultado = Label(self.win, text=f"Resultado {i+1}:", fg="#1e90ff")
                 etiNoResultado.pack()
                 texto = ""
-            for j in range(len(results[i])):
-                texto = texto + f"{listColumnas[j]}: {results[i][j]} "
-            etiResultado = Label(self.win, text=texto)
-            etiResultado.pack() 
+                for j in range(len(results[i])):
+                    texto = texto + f"{listColumnas[j]}: {results[i][j]} "
+                etiResultado = Label(self.win, text=texto)
+                etiResultado.pack() 
         else:
             mensaje = "No se ha encontrado nada"
             ErrorMessage(self.win, mensaje)
