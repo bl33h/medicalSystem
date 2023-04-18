@@ -19,7 +19,7 @@ class ExpedienteWindow:
         buttonBuscar = Button(self.win, text="Buscar", command= lambda: self.buscarPaciente(inputIdPaciente))
 
         buttonEditarUsuario = Button(self.win, text="Editar Usuario", command= lambda: EditarInfoUsuario(self.win))
-        buttonEncargadoBodega = Button(self.win, text="Encargado Bodega", command= lambda: Bodega())
+        buttonEncargadoBodega = Button(self.win, text="Encargado Bodega", command= lambda: Bodega(self.win))
         
         if (encargado_bodega == True):
             buttonEncargadoBodega.pack()
