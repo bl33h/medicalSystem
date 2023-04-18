@@ -3,6 +3,7 @@ import connection as con
 from resultadosExpediente import ResultadoExpediente
 from bodega import Bodega
 from editarInfoUsuario import EditarInfoUsuario
+from errorMessage import ErrorMessage
 
 class ExpedienteWindow:
     def __init__(self, parent, administrador, encargado_bodega):
@@ -18,7 +19,7 @@ class ExpedienteWindow:
         buttonBuscar = Button(self.win, text="Buscar", command= lambda: self.buscarPaciente(inputIdPaciente))
 
         buttonEditarUsuario = Button(self.win, text="Editar Usuario", command= lambda: EditarInfoUsuario(self.win))
-        buttonEncargadoBodega = Button(self.win, text="Encargado Bodega", command= lambda: Bodega())
+        buttonEncargadoBodega = Button(self.win, text="Encargado Bodega", command= lambda: Bodega(self.win))
         
         if (encargado_bodega == True):
             buttonEncargadoBodega.pack()
@@ -36,7 +37,11 @@ class ExpedienteWindow:
         query = f"select * from informacion_paciente('{inputIdPaciente.get()}')"
         results = con.connect(query)
         column_names = con.column_names(query)
-        ResultadoExpediente(self.win, results, column_names)
+        if results is not None:
+            ResultadoExpediente(self.win, results, column_names)
+        else:
+            mensaje = "No se ha encontrado el paciente"
+            ErrorMessage(self.win, mensaje)
     
         
         
