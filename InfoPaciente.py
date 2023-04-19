@@ -11,6 +11,7 @@ class infoPaciente:
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Información de paciente")
+        etiTitle = Label(self.win, text="Información de paciente", font=("Arial", 20, "bold"))
 
         main_frame = Frame(self.win)
         main_frame.pack(fill=BOTH, expand=1)
