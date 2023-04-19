@@ -36,8 +36,9 @@ class Bodega:
         inputIdEstablecimiento = Entry(second_frame)
         inputIdInsumo = Entry(second_frame)
         
-        buttonEditar = Button(second_frame, text="Editar", command= lambda: self.editarRegistro(inputIdEstablecimiento, inputIdInsumo, second_frame, contador = 7))
-        buttonBuscar = Button(second_frame, text="Buscar", command= lambda: self.buscarRegistro(inputIdEstablecimiento, inputIdInsumo, second_frame, contador = 7))
+        buttonEditar = Button(second_frame, text="Editar Insumo Existente", command= lambda: self.editarRegistro(inputIdEstablecimiento, inputIdInsumo, second_frame, contador = 8))
+        buttonAgregaInsumo = Button(second_frame, text="Agregar Insumo", command= lambda: self.agregarInsumo(inputIdEstablecimiento, inputIdInsumo, second_frame, contador = 8))
+        buttonBuscar = Button(second_frame, text="Buscar", command= lambda: self.buscarRegistro(inputIdEstablecimiento, inputIdInsumo, second_frame, contador = 8))
         
         etiIdEstablecimiento.grid(row=1, column=1)
         inputIdEstablecimiento.grid(row=2, column=1)
@@ -45,6 +46,7 @@ class Bodega:
         inputIdInsumo.grid(row=4, column=1)
         buttonBuscar.grid(row=5, column=1)
         buttonEditar.grid(row=6, column=1)
+        buttonAgregaInsumo.grid(row=7, column=1)
         
         self.win.geometry("600x500")
         
@@ -141,6 +143,42 @@ class Bodega:
         else:
             mensaje = "No se ha encontrado nada"
             ErrorMessage(self.win, mensaje)
-         
-
+            
+    def agregarInsumo(self, inputIdEstablecimiento, inputIdInsumo, second_frame, contador):
+        for widget in self.widget_list_dataPersonal:
+            widget.destroy()
+        self.widget_list_dataPersonal = []
+        
+        etiCantidad = Label(second_frame, text="Cantidad")
+        self.widget_list_dataPersonal.append(etiCantidad)
+        etiFechaVencimiento = Label(second_frame, text="Fecha de vencimiento")
+        self.widget_list_dataPersonal.append(etiFechaVencimiento)
+        
+        inputCantidad = Entry(second_frame)
+        self.widget_list_dataPersonal.append(inputCantidad)
+        inputFechaVencimiento = Entry(second_frame)
+        self.widget_list_dataPersonal.append(inputFechaVencimiento)
+        
+        etiCantidad.grid(row=contador, column=1)
+        contador += 1
+        inputCantidad.grid(row=contador, column=1)
+        contador += 1
+        etiFechaVencimiento.grid(row=contador, column=1)
+        contador += 1
+        inputFechaVencimiento.grid(row=contador, column=1)
+        contador += 1
+        
+        buttonEnviarInfo = Button(second_frame, text="Enviar datos", command= lambda: EviarDatos(inputIdEstablecimiento, inputIdInsumo, inputCantidad, inputFechaVencimiento))
+        self.widget_list_dataPersonal.append(buttonEnviarInfo)
+        buttonEnviarInfo.grid(row=contador, column=1)
+        
+        def EviarDatos(inputIdEstablecimiento, inputIdInsumo, inputCantidad, inputFechaVencimiento):
+            query = f"select * from insertar_insumos('{inputIdEstablecimiento.get()}', '{inputIdInsumo.get()}', {inputCantidad.get()}, '{inputFechaVencimiento.get()}');"
+            results = con.connect(query)
+            if (results == None):
+                mensaje = "Ha ocurrido un error al agregar el insumo"
+                ErrorMessage(self.win, mensaje=mensaje)
+            else:
+                mensaje = "Se ha agregado el insumo con id " + inputIdInsumo.get() + " al establecimiento con id " + inputIdEstablecimiento.get()
+                ErrorMessage(self.win, mensaje=mensaje)
         
