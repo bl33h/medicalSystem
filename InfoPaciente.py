@@ -58,13 +58,19 @@ class infoPaciente:
         column_names2 = con.column_names(query2)
         if results1 is not None:
             listColumnas1 = list(column_names1)
-            #ResultadoExpediente(self.win, results1, column_names)
             for i in range(len(results1)):
                 etiNoResultado = Label(second_frame, text=f"Resultado Informacion de paciente {i+1}:", fg="#1e90ff")
                 etiNoResultado.grid(row=contador, column=1)
                 contador = contador + 1
                 texto = ""
                 for j in range(len(results1[i])):
+                    if listColumnas1[j] == "sexo":
+                        if results1[i][j] == 0:
+                            texto = texto + f"{listColumnas1[j]}: Hombre "
+                            continue
+                        else:
+                            texto = texto + f"{listColumnas1[j]}: Mujer "
+                            continue
                     texto = texto + f"{listColumnas1[j]}: {results1[i][j]} "
                 etiResultado = Label(second_frame, text=texto)
                 etiResultado.grid(row=contador, column=1)
@@ -87,5 +93,8 @@ class infoPaciente:
         else:
             mensaje = "No se ha encontrado el historial del paciente"
             em.ErrorMessage(self.win, mensaje)
+
+            ## 0 hombre
+            ## 1 mujer
 
         
