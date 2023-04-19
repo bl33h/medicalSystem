@@ -8,23 +8,25 @@ class SignupWindow:
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Signup")
+        etiTitle = Label(self.win, text="Signup", font=("Arial", 20, "bold"))
         
         etiUsername = Label(self.win, text="Username")
-        inputUsername = Entry(self.win)
+        inputUsername = Entry(self.win, width=20)
         
         etiPassword = Label(self.win, text="Password")
-        inputPassword = Entry(self.win)
+        inputPassword = Entry(self.win, width=20)
         
         etiIdEstablecimiento = Label(self.win, text="Id Establecimiento")
-        inputIdEstablecionto = Entry(self.win)
+        inputIdEstablecionto = Entry(self.win, width=20)
         
         etiEsEncargado = Label(self.win, text = "Es encargado de bodega")
         esEncargado = IntVar()
         checkBoxEncargado = Checkbutton(self.win, variable=esEncargado)
         
-        buttonSignup = Button(self.win, text="Signup", command= lambda: self.checkSignUp(inputPassword, inputUsername, inputIdEstablecionto, esEncargado))
-        buttonClose = Button(self.win, text="Close", command= lambda: self.close())
+        buttonSignup = Button(self.win, text="Signup", command= lambda: self.checkSignUp(inputPassword, inputUsername, inputIdEstablecionto, esEncargado), width=15)
+        buttonClose = Button(self.win, text="Close", command= lambda: self.close(), width=15)
         
+        etiTitle.pack()
         etiUsername.pack()
         inputUsername.pack()
         etiPassword.pack()
@@ -32,9 +34,9 @@ class SignupWindow:
         etiIdEstablecimiento.pack()
         inputIdEstablecionto.pack()
         etiEsEncargado.pack()
-        checkBoxEncargado.pack()
-        buttonSignup.pack()
-        buttonClose.pack()
+        checkBoxEncargado.pack(pady=5)
+        buttonSignup.pack(pady=5)
+        buttonClose.pack(pady=5)
 
         self.win.geometry("400x300")
         

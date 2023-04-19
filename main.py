@@ -13,22 +13,23 @@ def main():
 def principalWindow():
     win = Tk()
     win.title("Login")
-    
+    etiTitle = Label(win, text="Login", font=("Arial", 20, "bold"))
     etiUsername = Label(win, text="Username")
     inputUsername = Entry(win)
     
     etiPassword = Label(win, text="Password")
-    inputPassword = Entry(win)
+    inputPassword = Entry(win, show = "*")
     
-    buttonLogin = Button(win, text="Login", command= lambda: login(inputPassword, inputUsername, win))
-    buttonCrearUsuario = Button(win, text="Crear Usuario", command= lambda: SignupWindow(win))
+    buttonLogin = Button(win, text="Login", command= lambda: login(inputPassword, inputUsername, win), width=15)
+    buttonCrearUsuario = Button(win, text="Crear Usuario", command= lambda: SignupWindow(win), width=15)
     
+    etiTitle.pack(pady=5)
     etiUsername.pack()
-    inputUsername.pack()
+    inputUsername.pack(pady=5)
     etiPassword.pack()
-    inputPassword.pack()
-    buttonLogin.pack()
-    buttonCrearUsuario.pack()
+    inputPassword.pack(pady=5)
+    buttonLogin.pack(pady=5)
+    buttonCrearUsuario.pack(pady=5)
 
     win.geometry("300x250")
     win.mainloop()
