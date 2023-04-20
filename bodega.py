@@ -1,41 +1,38 @@
 from tkinter import *
 import connection as con
 from errorMessage import ErrorMessage
-import customtkinter as ct
 
 class Bodega:
     def __init__(self, parent):
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Bodega")
-        etiTitle = ct.CTkLabel(self.win, text="Bodega", font=("Arial", 20, "bold"))
         
-        scrollbar = ct.CTkScrollbar(self.win)
+        scrollbar = Scrollbar(self.win)
         scrollbar.pack(side=RIGHT, fill=Y)
         
         self.widget_list_dataPersonal = []
         
-        etiInformacion = ct.CTkLabel(self.win, text="Ingrese los valores de cada campo, si no desea utilizar ese filtro deje el campo vacio", text_color="red")
+        etiInformacion = Label(self.win, text="Ingrese los valores de cada campo, si no desea utilizar ese filtro deje el campo vacio")
+        etiInformacion.pack()
         
-        etiIdEstablecimiento = ct.CTkLabel(self.win, text="Id Establecimiento")
-        etiIdInsumo = ct.CTkLabel(self.win, text="Id Insumo")
+        etiIdEstablecimiento = Label(self.win, text="Id Establecimiento")
+        etiIdInsumo = Label(self.win, text="Id Insumo")
         
-        inputIdEstablecimiento = ct.CTkEntry(self.win, width=200)
-        inputIdInsumo = ct.CTkEntry(self.win, width=200)
+        inputIdEstablecimiento = Entry(self.win)
+        inputIdInsumo = Entry(self.win)
         
-        buttonEditar = ct.CTkButton(self.win, text="Editar", command= lambda: self.editarRegistro(inputIdEstablecimiento, inputIdInsumo), width=100)
-        buttonBuscar = ct.CTkButton(self.win, text="Buscar", command= lambda: self.buscarRegistro(inputIdEstablecimiento, inputIdInsumo), width=100)
+        buttonEditar = Button(self.win, text="Editar", command= lambda: self.editarRegistro(inputIdEstablecimiento, inputIdInsumo))
+        buttonBuscar = Button(self.win, text="Buscar", command= lambda: self.buscarRegistro(inputIdEstablecimiento, inputIdInsumo))
         
-        etiTitle.pack(pady=5)
-        etiInformacion.pack(pady=5)
         etiIdEstablecimiento.pack()
-        inputIdEstablecimiento.pack(pady=5)
+        inputIdEstablecimiento.pack()
         etiIdInsumo.pack()
-        inputIdInsumo.pack(pady=5)
-        buttonBuscar.pack(pady=5)
-        buttonEditar.pack(pady=5)
+        inputIdInsumo.pack()
+        buttonBuscar.pack()
+        buttonEditar.pack()
         
-        self.win.geometry("700x700")
+        self.win.geometry("600x500")
         
         # Registro de usuario        
     def editarRegistro(self, inputIdEstablecimiento, inputIdInsumo):
@@ -51,7 +48,7 @@ class Bodega:
         results = con.connect(queryResults) # Obtener los valores de las columnas
         
         for i in range(len(column_names)):
-            dicLabels[column_names[i]] = ct.CTkLabel(self.win, text=column_names[i].capitalize())
+            dicLabels[column_names[i]] = Label(self.win, text=column_names[i].capitalize())
             
         for i in range(len(results)):
             listResults = list(results[i])
@@ -65,7 +62,7 @@ class Bodega:
                 key = listResults[i]
                 while (key in dicResults):
                     key = str(key) + "1"
-                dicResults[key] = ct.CTkEntry(self.win, width=200)
+                dicResults[key] = Entry(self.win)
                 dicResults[key].insert(0, listResults[i]) # Inserta el valor en el Entry
                 keys.append(key)
             
@@ -97,12 +94,12 @@ class Bodega:
         if results is not None:
             listColumnas = list(column_names)
             for i in range(len(results)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado {i+1}:", text_color="#1e90ff")
+                etiNoResultado = Label(self.win, text=f"Resultado {i+1}:", fg="#1e90ff")
                 etiNoResultado.pack()
                 texto = ""
                 for j in range(len(results[i])):
                     texto = texto + f"{listColumnas[j]}: {results[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
+                etiResultado = Label(self.win, text=texto)
                 etiResultado.pack() 
         else:
             mensaje = "No se ha encontrado nada"

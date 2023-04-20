@@ -1,7 +1,9 @@
 from tkinter import *
 import connection as con
 import errorMessage as em
-import customtkinter as ct
+from resultadosExpediente import ResultadoExpediente
+
+
 
 class infoPaciente:
     def __init__(self, parent):
@@ -9,22 +11,43 @@ class infoPaciente:
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Información de paciente")
-        etiTitle = ct.CTkLabel(self.win, text="Información de paciente", font=("Arial", 20, "bold"))
+        etiTitle = Label(self.win, text="Información de paciente", font=("Arial", 20, "bold"))
+
+        main_frame = Frame(self.win)
+        main_frame.pack(fill=BOTH, expand=1)
         
-        etiIdPaciente = ct.CTkLabel(self.win, text="Id del paciente")
+        my_canvas = Canvas(main_frame)
+        my_canvas.pack(side=LEFT, fill=BOTH, expand=1)
         
-        inputIdPaciente = ct.CTkEntry(self.win, width=200)
+        my_scrollbar = Scrollbar(main_frame, orient=VERTICAL, command=my_canvas.yview)
+        my_scrollbar2 = Scrollbar(main_frame, orient=HORIZONTAL, command=my_canvas.xview)
+        my_scrollbar.pack(side=RIGHT, fill=Y)
+        my_scrollbar2.pack(side=BOTTOM, fill=X)
+
         
-        buttonBuscar = ct.CTkButton(self.win, text="Buscar", command= lambda: self.buscarPaciente(inputIdPaciente))
+        my_canvas.configure(yscrollcommand=my_scrollbar.set)
+        my_canvas.configure(xscrollcommand=my_scrollbar2.set)
+        my_canvas.bind('<Configure>', lambda e: my_canvas.configure(scrollregion = my_canvas.bbox("all")))
         
-        etiTitle.pack(pady=5)
-        etiIdPaciente.pack(pady=5)
-        inputIdPaciente.pack(pady=5)
-        buttonBuscar.pack(pady=5)
+        second_frame = Frame(my_canvas)
         
-        self.win.geometry("600x600")
+        my_canvas.create_window((0,0), window=second_frame, anchor="nw")
         
-    def buscarPaciente(self, inputIdPaciente):
+        etiIdPaciente = Label(second_frame, text="Id del paciente")
+        
+        inputIdPaciente = Entry(second_frame)
+
+        print(inputIdPaciente.get())
+        
+        buttonBuscar = Button(second_frame, text="Buscar", command= lambda: self.buscarPaciente(inputIdPaciente, second_frame, contador = 4))
+        
+        etiIdPaciente.grid(row=0, column=1)
+        inputIdPaciente.grid(row=1, column=1)
+        buttonBuscar.grid(row=2, column=1)
+        
+        self.win.geometry("400x300")
+        
+    def buscarPaciente(self, inputIdPaciente, second_frame, contador):
         for widget in self.widget_list_dataPersonal:
             widget.destroy()
         self.widget_list_dataPersonal = []
@@ -37,8 +60,9 @@ class infoPaciente:
         if results1 is not None:
             listColumnas1 = list(column_names1)
             for i in range(len(results1)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado Informacion de paciente {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
-                etiNoResultado.pack(pady=5)
+                etiNoResultado = Label(second_frame, text=f"Resultado Informacion de paciente {i+1}:", fg="#1e90ff")
+                etiNoResultado.grid(row=contador, column=1)
+                contador = contador + 1
                 texto = ""
                 for j in range(len(results1[i])):
                     if listColumnas1[j] == "sexo":
@@ -48,26 +72,25 @@ class infoPaciente:
                         else:
                             texto = texto + f"{listColumnas1[j]}: Mujer "
                             continue
-                    #Agregar un salto de linea en la posicion 5
-                    if j == 6:
-                        texto = texto + "\n"  
-                        continue 
                     texto = texto + f"{listColumnas1[j]}: {results1[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
-                etiResultado.pack(pady=5)
+                etiResultado = Label(second_frame, text=texto)
+                etiResultado.grid(row=contador, column=1)
+                contador = contador + 1 
         else:
             mensaje = "No se ha encontrado la información del paciente"
             em.ErrorMessage(self.win, mensaje)
         if results2 is not None:
             listColumnas2 = list(column_names2)
             for i in range(len(results2)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado historial de enfermedades {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
-                etiNoResultado.pack(pady=5)
+                etiNoResultado = Label(second_frame, text=f"Resultado historial de enfermedades {i+1}:", fg="#1e90ff")
+                etiNoResultado.grid(row=contador, column=1)
+                contador = contador + 1
                 texto = ""
                 for j in range(len(results2[i])):
                     texto = texto + f"{listColumnas2[j]}: {results2[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
-                etiResultado.pack(pady=5)
+                etiResultado = Label(second_frame, text=texto)
+                etiResultado.grid(row=contador, column=1)
+                contador = contador + 1 
         else:
             mensaje = "No se ha encontrado el historial del paciente"
             em.ErrorMessage(self.win, mensaje)

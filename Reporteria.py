@@ -1,7 +1,6 @@
 from tkinter import *
 import connection as con
 import errorMessage as em
-import customtkinter as ct
 
 class Reporteria:
     def __init__(self, parent):
@@ -9,13 +8,17 @@ class Reporteria:
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Reporteria")
-        etiTitle = ct.CTkLabel(self.win, text="Reporteria", font=("Arial", 20, "bold"))
+        etiTitle = Label(self.win, text="Reporteria", font=("Arial", 20, "bold"))
+        
+        # 5 botones, uno para cada reporte: enfermedades mas mortales, médicos que más pacientes han atendido, 
+        # pacientes con más asistencias, medicinas o suministros que están a punto de terminarse, unidades de salud que más
+        # pacientes atienden
 
-        buttonEnfermedadesMortales = ct.CTkButton(self.win, text="Enfermedades más mortales", command= lambda: self.enfermedadesMortales(), width=300)
-        buttonMedicosMasPacientes = ct.CTkButton(self.win, text="Médicos que más pacientes han atendido", command= lambda: self.medicosMasPacientes(), width=300)
-        buttonPacientesMasAsistencias = ct.CTkButton(self.win, text="Pacientes con más asistencias", command= lambda: self.pacientesMasAsistencias(), width=300)
-        buttonMedicinasPuntoTerminarse = ct.CTkButton(self.win, text="Insumos que están a punto de terminarse", command= lambda: self.medicinasPuntoTerminarse(), width=300)
-        buttonUnidadesSaludMasPacientes = ct.CTkButton(self.win, text="Unidades de salud que más pacientes atienden", command= lambda: self.unidadesSaludMasPacientes(), width=300)
+        buttonEnfermedadesMortales = Button(self.win, text="Enfermedades más mortales", command= lambda: self.enfermedadesMortales(), width=35)
+        buttonMedicosMasPacientes = Button(self.win, text="Médicos que más pacientes han atendido", command= lambda: self.medicosMasPacientes(), width=35)
+        buttonPacientesMasAsistencias = Button(self.win, text="Pacientes con más asistencias", command= lambda: self.pacientesMasAsistencias(), width=35)
+        buttonMedicinasPuntoTerminarse = Button(self.win, text="Insumos que están a punto de terminarse", command= lambda: self.medicinasPuntoTerminarse(), width=35)
+        buttonUnidadesSaludMasPacientes = Button(self.win, text="Unidades de salud que más pacientes atienden", command= lambda: self.unidadesSaludMasPacientes(), width=35)
 
         etiTitle.pack()
         buttonEnfermedadesMortales.pack(pady=5)
@@ -25,7 +28,7 @@ class Reporteria:
         buttonUnidadesSaludMasPacientes.pack(pady=5)
  
         
-        self.win.geometry("600x300")
+        self.win.geometry("400x300")
 
     def enfermedadesMortales(self):
         query1 = "select * from get_top_enfermedades()"
@@ -34,12 +37,12 @@ class Reporteria:
         if results is not None:
              listColumnas1 = list(column_names1)
              for i in range(len(results)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
+                etiNoResultado = Label(self.win, text=f"Resultado {i+1}:", fg="#1e90ff")
                 etiNoResultado.pack()
                 texto = ""
                 for j in range(len(results[i])):
                     texto = texto + f"{listColumnas1[j]}: {results[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
+                etiResultado = Label(self.win, text=texto)
                 etiResultado.pack() 
         else:
             mensaje = "No se han encontrado resultados"
@@ -52,12 +55,12 @@ class Reporteria:
         if results is not None:
              listColumnas2 = list(column_names2)
              for i in range(len(results)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
+                etiNoResultado = Label(self.win, text=f"Resultado {i+1}:", fg="#1e90ff")
                 etiNoResultado.pack()
                 texto = ""
                 for j in range(len(results[i])):
                     texto = texto + f"{listColumnas2[j]}: {results[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
+                etiResultado = Label(self.win, text=texto)
                 etiResultado.pack() 
         else:
             mensaje = "No se han encontrado resultados"
@@ -70,12 +73,12 @@ class Reporteria:
         if results is not None:
              listColumnas3 = list(column_names3)
              for i in range(len(results)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
+                etiNoResultado = Label(self.win, text=f"Resultado {i+1}:", fg="#1e90ff")
                 etiNoResultado.pack()
                 texto = ""
                 for j in range(len(results[i])):
                     texto = texto + f"{listColumnas3[j]}: {results[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
+                etiResultado = Label(self.win, text=texto)
                 etiResultado.pack() 
         else:
             mensaje = "No se han encontrado resultados"
@@ -84,9 +87,9 @@ class Reporteria:
     def medicinasPuntoTerminarse(self):
         var_wait = IntVar()
         #crear un entry para que se ingrese el id del establecimiento
-        etiEstablecimiento = ct.CTkLabel(self.win, text="Ingrese el id del establecimiento:", font=('Arial', 12, 'bold'))
-        inputEstablecimiento = ct.CTkEntry(self.win)
-        btnEstablecimiento = ct.CTkButton(self.win, text="Aceptar", command= lambda: var_wait.set(1))
+        etiEstablecimiento = Label(self.win, text="Ingrese el id del establecimiento:", font='Helvetica 10 bold')
+        inputEstablecimiento = Entry(self.win)
+        btnEstablecimiento = Button(self.win, text="Aceptar", command= lambda: var_wait.set(1))
         etiEstablecimiento.pack()
         inputEstablecimiento.pack()
         btnEstablecimiento.pack()
@@ -97,12 +100,12 @@ class Reporteria:
         if results is not None:
              listColumnas4 = list(column_names4)
              for i in range(len(results)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
+                etiNoResultado = Label(self.win, text=f"Resultado {i+1}:", fg="#1e90ff")
                 etiNoResultado.pack()
                 texto = ""
                 for j in range(len(results[i])):
                     texto = texto + f"{listColumnas4[j]}: {results[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
+                etiResultado = Label(self.win, text=texto)
                 etiResultado.pack() 
         else:
             mensaje = "No se han encontrado resultados"
@@ -115,12 +118,12 @@ class Reporteria:
         if results is not None:
              listColumnas5 = list(column_names5)
              for i in range(len(results)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
+                etiNoResultado = Label(self.win, text=f"Resultado {i+1}:", fg="#1e90ff")
                 etiNoResultado.pack()
                 texto = ""
                 for j in range(len(results[i])):
                     texto = texto + f"{listColumnas5[j]}: {results[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
+                etiResultado = Label(self.win, text=texto)
                 etiResultado.pack() 
         else:
             mensaje = "No se han encontrado resultados"

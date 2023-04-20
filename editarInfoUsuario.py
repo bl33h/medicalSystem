@@ -1,7 +1,6 @@
 from tkinter import *
 from errorMessage import ErrorMessage
 import connection as con
-import customtkinter as ct
 
 class EditarInfoUsuario:
     def __init__(self, parent):
@@ -9,28 +8,26 @@ class EditarInfoUsuario:
         self.win = Toplevel(parent)
         self.win.title("Editar Informacion de Usuario")
         self.widget_list_dataPersonal = []
-        etiTitle = ct.CTkLabel(self.win, text="Editar Informacion de Usuario", font=("Arial", 20, "bold"))
         
-        etiIdUsuario = ct.CTkLabel(self.win, text="Id del usuario")
-        inputIdUsuario = ct.CTkEntry(self.win, width=200)
-        buttonBuscar = ct.CTkButton(self.win, text="Buscar", command= lambda: self.buscarUsuario(inputIdUsuario), width=100)
-        etiUsuario = ct.CTkLabel(self.win, text="Usuario", width=200)
-        etiContrasena = ct.CTkLabel(self.win, text="Contraseña", width=200)
-        inputUsuario = ct.CTkEntry(self.win, width=200)
-        inputContrasena = ct.CTkEntry(self.win, width=200)
-        buttonBuscarRegistro = ct.CTkButton(self.win, text="Buscar", command= lambda: self.buscarRegistroUsuario(inputUsuario, inputContrasena), width=100)
+        etiIdUsuario = Label(self.win, text="Id del usuario")
+        inputIdUsuario = Entry(self.win)
+        buttonBuscar = Button(self.win, text="Buscar", command= lambda: self.buscarUsuario(inputIdUsuario))
+        etiUsuario = Label(self.win, text="Usuario")
+        etiContrasena = Label(self.win, text="Contraseña")
+        inputUsuario = Entry(self.win)
+        inputContrasena = Entry(self.win)
+        buttonBuscarRegistro = Button(self.win, text="Buscar", command= lambda: self.buscarRegistroUsuario(inputUsuario, inputContrasena))
         
-        etiTitle.pack(pady=5)
         etiIdUsuario.pack()
-        inputIdUsuario.pack(pady=5)
-        buttonBuscar.pack(pady=5)
+        inputIdUsuario.pack()
+        buttonBuscar.pack()
         
         
         etiUsuario.pack()
-        inputUsuario.pack(pady=5)
+        inputUsuario.pack()
         etiContrasena.pack()
-        inputContrasena.pack(pady=5)
-        buttonBuscarRegistro.pack(pady=5)
+        inputContrasena.pack()
+        buttonBuscarRegistro.pack()
         
         self.win.geometry("600x700")
         
@@ -47,7 +44,7 @@ class EditarInfoUsuario:
         results = con.connect(queryResults) # Obtener los valores de las columnas
         
         for i in range(len(column_names)):
-            dicLabels[column_names[i]] = ct.CTkLabel(self.win, text=column_names[i].capitalize())
+            dicLabels[column_names[i]] = Label(self.win, text=column_names[i].capitalize())
             
         for i in range(len(results)):
             listResults = list(results[i])
@@ -61,7 +58,7 @@ class EditarInfoUsuario:
                 key = listResults[i]
                 while (key in dicResults):
                     key = key + "1"
-                dicResults[key] = ct.CTkEntry(self.win, width=200)
+                dicResults[key] = Entry(self.win)
                 dicResults[key].insert(0, listResults[i]) # Inserta el valor en el Entry
                 keys.append(key)
             
@@ -72,7 +69,7 @@ class EditarInfoUsuario:
                     self.widget_list_dataPersonal.append(dicLabels[column_names[i]])
                     self.widget_list_dataPersonal.append(dicResults[keys[i]])
             
-            buttonModificar = ct.CTkButton(self.win, text="Modificar", command= lambda: ObtenerValoresNuevos(), width=100)
+            buttonModificar = Button(self.win, text="Modificar", command= lambda: ObtenerValoresNuevos())
             buttonModificar.pack()
             self.widget_list_dataPersonal.append(buttonModificar)
             
@@ -107,7 +104,7 @@ class EditarInfoUsuario:
         results = con.connect(queryResults) # Obtener los valores de las columnas
         
         for i in range(len(column_names)):
-            dicLabels[column_names[i]] = ct.CTkLabel(self.win, text=column_names[i].capitalize())
+            dicLabels[column_names[i]] = Label(self.win, text=column_names[i].capitalize())
             
         for i in range(len(results)):
             listResults = list(results[i])
@@ -121,7 +118,7 @@ class EditarInfoUsuario:
                 key = listResults[i]
                 while (key in dicResults):
                     key = str(key) + "1"
-                dicResults[key] = ct.CTkEntry(self.win)
+                dicResults[key] = Entry(self.win)
                 dicResults[key].insert(0, listResults[i]) # Inserta el valor en el Entry
                 keys.append(key)
             
@@ -134,7 +131,7 @@ class EditarInfoUsuario:
                     self.widget_list_dataPersonal.append(dicLabels[column_names[i]])
                     self.widget_list_dataPersonal.append(dicResults[keys[i]])
             
-            buttonModificar = ct.CTkButton(self.win, text="Modificar", command= lambda: ObtenerValoresNuevosRegistroUsuario())
+            buttonModificar = Button(self.win, text="Modificar", command= lambda: ObtenerValoresNuevosRegistroUsuario())
             buttonModificar.pack()
             self.widget_list_dataPersonal.append(buttonModificar)
             

@@ -2,31 +2,29 @@ from tkinter import *
 from errorMessage import ErrorMessage
 from ingresoMedico import IngresoMedico
 import connection as con
-import customtkinter as ct
 
-class SignupWindow():
+class SignupWindow:
     def __init__(self, parent):
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Signup")
-        etiTitle = ct.CTkLabel(self.win, text="Signup", font=("Arial", 20, "bold"))
+        etiTitle = Label(self.win, text="Signup", font=("Arial", 20, "bold"))
         
-        etiUsername = ct.CTkLabel(self.win, text="Username")
-        inputUsername = ct.CTkEntry(self.win, width=150)
+        etiUsername = Label(self.win, text="Username")
+        inputUsername = Entry(self.win, width=20)
         
-        etiPassword = ct.CTkLabel(self.win, text="Password")
-        inputPassword = ct.CTkEntry(self.win, width=150)
+        etiPassword = Label(self.win, text="Password")
+        inputPassword = Entry(self.win, width=20)
         
-        etiIdEstablecimiento = ct.CTkLabel(self.win, text="Id Establecimiento")
-        inputIdEstablecionto = ct.CTkEntry(self.win, width=150)
+        etiIdEstablecimiento = Label(self.win, text="Id Establecimiento")
+        inputIdEstablecionto = Entry(self.win, width=20)
         
-        etiEsEncargado = ct.CTkLabel(self.win, text = "¿Es encargado de bodega?")
+        etiEsEncargado = Label(self.win, text = "Es encargado de bodega")
         esEncargado = IntVar()
-        checkBoxEncargado = ct.CTkRadioButton(self.win, variable=esEncargado, value=1, text="Si")
+        checkBoxEncargado = Checkbutton(self.win, variable=esEncargado)
         
-        buttonSignup = ct.CTkButton(self.win, text="Signup", command= lambda: self.checkSignUp(inputPassword, inputUsername, inputIdEstablecionto, esEncargado), width=100)
-        buttonClose = ct.CTkButton(self.win, text="Close", command= lambda: self.close(), width=100)
-
+        buttonSignup = Button(self.win, text="Signup", command= lambda: self.checkSignUp(inputPassword, inputUsername, inputIdEstablecionto, esEncargado), width=15)
+        buttonClose = Button(self.win, text="Close", command= lambda: self.close(), width=15)
         
         etiTitle.pack()
         etiUsername.pack()
@@ -40,8 +38,7 @@ class SignupWindow():
         buttonSignup.pack(pady=5)
         buttonClose.pack(pady=5)
 
-        self.win.geometry("450x450")
-
+        self.win.geometry("400x300")
         
     def checkSignUp(self,inputPassword, inputUsername, inputIdEstablecimiento, esEncargado):
         valor = False
