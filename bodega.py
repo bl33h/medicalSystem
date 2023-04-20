@@ -2,6 +2,7 @@ from tkinter import *
 import connection as con
 from errorMessage import ErrorMessage
 from datetime import datetime
+from tkinter import messagebox
 
 class Bodega:
     def __init__(self, parent):
@@ -111,35 +112,46 @@ class Bodega:
         for widget in self.widget_list_dataPersonal:
             widget.destroy()
         self.widget_list_dataPersonal = []
-        
-        queryColumn = f"select * from obtener_insumos()"
-        
-        if (inputIdEstablecimiento.get() == "" and inputIdInsumo.get() == ""):
-            queryResults = f"select * from obtener_insumos(null, null);"
-        elif (inputIdEstablecimiento.get() == ""):
+
+        queryColumn = "select * from obtener_insumos()"
+
+        if inputIdEstablecimiento.get() == "" and inputIdInsumo.get() == "":
+            queryResults = "select * from obtener_insumos(null, null);"
+        elif inputIdEstablecimiento.get() == "":
             queryResults = f"select * from obtener_insumos(null, '{inputIdInsumo.get()}');"
-        elif (inputIdInsumo.get() == ""):
+        elif inputIdInsumo.get() == "":
             queryResults = f"select * from obtener_insumos('{inputIdEstablecimiento.get()}', null);"
         else:
             queryResults = f"select * from obtener_insumos('{inputIdEstablecimiento.get()}', '{inputIdInsumo.get()}');"
-        
-        column_names = con.column_names(queryColumn) # Obtener los nombres de las columnas
-        results = con.connect(queryResults) # Obtener los valores de las columnas
-        
+
+        column_names = con.column_names(queryColumn)
+        results = con.connect(queryResults)
+
         if results is not None:
             listColumnas = list(column_names)
-            for i in range(len(results)):
-                etiNoResultado = Label(second_frame, text=f"Resultado {i+1}:", fg="#1e90ff")
-                etiNoResultado.grid(row=contador, column=1)
-                self.widget_list_dataPersonal.append(etiNoResultado)
-                contador += 1
-                texto = ""
-                for j in range(len(results[i])):
-                    texto = texto + f"{listColumnas[j]}: {results[i][j]} "
-                etiResultado = Label(second_frame, text=texto)
-                etiResultado.grid(row=contador, column=1)
-                self.widget_list_dataPersonal.append(etiResultado)
-                contador += 1
+        for i in range(len(results)):
+            etiNoResultado = Label(second_frame, text=f"Resultado {i+1}:", fg="#1e90ff")
+            etiNoResultado.grid(row=contador, column=1)
+            self.widget_list_dataPersonal.append(etiNoResultado)
+            contador += 1
+            texto = ""
+            for j in range(len(results[i])):
+                texto = texto + f"{listColumnas[j]}: {results[i][j]} "
+            etiResultado = Label(second_frame, text=texto)
+            etiResultado.grid(row=contador, column=1)
+            self.widget_list_dataPersonal.append(etiResultado)
+            contador += 1
+        query = f"select* from generar_alertas('{inputIdEstablecimiento.get()}');" # Generador de alertas
+        alertas = con.connect(query)
+        if alertas is not None:
+            for alerta in alertas:
+                tipo_alerta = alerta[0]
+                if tipo_alerta != "Vigente": # Solamente si el estado es diferente a vigente
+                    nombre_insumo = alerta[1]
+                    fecha_de_vencimiento = alerta[2]
+                    cantidad = alerta[3]
+                    messagebox.showinfo("¡Alerta!", f"El insumo: {nombre_insumo}\nSe encuentra: {tipo_alerta}\nFecha de vencimiento: {fecha_de_vencimiento}\nCantidad: {cantidad}\n")
+
         else:
             mensaje = "No se ha encontrado nada"
             ErrorMessage(self.win, mensaje)
