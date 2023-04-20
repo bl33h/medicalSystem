@@ -8,7 +8,6 @@ class Reporteria:
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Reporteria")
-        etiTitle = ct.CTkLabel(self.win, text="Reporteria", font=("Arial", 20, "bold"))
         
         main_frame = ct.CTkFrame(self.win)
         main_frame.pack(fill=BOTH, expand=1)
@@ -26,26 +25,28 @@ class Reporteria:
         second_frame = ct.CTkFrame(my_canvas)
         
         my_canvas.create_window((0,0), window=second_frame, anchor="nw")
+        
+        etiTitle = ct.CTkLabel(second_frame, text="Reporteria", font=("Arial", 20, "bold"))
 
         self.widget_list_dataPersonal = []
 
-        buttonEnfermedadesMortales = ct.CTkButton(second_frame, text="Enfermedades más mortales", command= lambda: self.enfermedadesMortales(), width=300)
-        buttonMedicosMasPacientes = ct.CTkButton(second_frame, text="Médicos que más pacientes han atendido", command= lambda: self.medicosMasPacientes(), width=300)
-        buttonPacientesMasAsistencias = ct.CTkButton(second_frame, text="Pacientes con más asistencias", command= lambda: self.pacientesMasAsistencias(), width=300)
-        buttonMedicinasPuntoTerminarse = ct.CTkButton(second_frame, text="Insumos que están a punto de terminarse", command= lambda: self.medicinasPuntoTerminarse(), width=300)
-        buttonUnidadesSaludMasPacientes = ct.CTkButton(second_frame, text="Unidades de salud que más pacientes atienden", command= lambda: self.unidadesSaludMasPacientes(), width=300)
+        buttonEnfermedadesMortales = ct.CTkButton(second_frame, text="Enfermedades más mortales", command= lambda: self.enfermedadesMortales(second_frame), width=300)
+        buttonMedicosMasPacientes = ct.CTkButton(second_frame, text="Médicos que más pacientes han atendido", command= lambda: self.medicosMasPacientes(second_frame), width=300)
+        buttonPacientesMasAsistencias = ct.CTkButton(second_frame, text="Pacientes con más asistencias", command= lambda: self.pacientesMasAsistencias(second_frame), width=300)
+        buttonMedicinasPuntoTerminarse = ct.CTkButton(second_frame, text="Insumos que están a punto de terminarse", command= lambda: self.medicinasPuntoTerminarse(second_frame), width=300)
+        buttonUnidadesSaludMasPacientes = ct.CTkButton(second_frame, text="Unidades de salud que más pacientes atienden", command= lambda: self.unidadesSaludMasPacientes(second_frame), width=300)
 
-        etiTitle.grid(row=0, column=0, padx=0, pady=5, sticky="nsew")
-        buttonEnfermedadesMortales.grid(row=1, column=0, padx=0, pady=5, sticky="nsew")
-        buttonMedicosMasPacientes.grid(row=2, column=0, padx=0, pady=5, sticky="nsew")
-        buttonPacientesMasAsistencias.grid(row=3, column=0, padx=0, pady=5, sticky="nsew")
-        buttonMedicinasPuntoTerminarse.grid(row=4, column=0, padx=0, pady=5, sticky="nsew")
-        buttonUnidadesSaludMasPacientes.grid(row=5, column=0, padx=0, pady=5, sticky="nsew")
+        etiTitle.pack(pady=5)
+        buttonEnfermedadesMortales.pack(pady=5)
+        buttonMedicosMasPacientes.pack(pady=5)
+        buttonPacientesMasAsistencias.pack(pady=5)
+        buttonMedicinasPuntoTerminarse.pack(pady=5)
+        buttonUnidadesSaludMasPacientes.pack(pady=5)
  
         
         self.win.geometry("600x300")
 
-    def enfermedadesMortales(self):
+    def enfermedadesMortales(self, second_frame):
         for widget in self.widget_list_dataPersonal:
             widget.destroy()
         self.widget_list_dataPersonal = []
@@ -55,20 +56,20 @@ class Reporteria:
         if results is not None:
              listColumnas1 = list(column_names1)
              for i in range(len(results)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
+                etiNoResultado = ct.CTkLabel(second_frame, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
                 etiNoResultado.pack()
                 self.widget_list_dataPersonal.append(etiNoResultado)
                 texto = ""
                 for j in range(len(results[i])):
                     texto = texto + f"{listColumnas1[j]}: {results[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
+                etiResultado = ct.CTkLabel(second_frame, text=texto)
                 etiResultado.pack()
                 self.widget_list_dataPersonal.append(etiResultado) 
         else:
             mensaje = "No se han encontrado resultados"
             em.ErrorMessage(self.win, mensaje)
 
-    def medicosMasPacientes(self):
+    def medicosMasPacientes(self, second_frame):
         for widget in self.widget_list_dataPersonal:
             widget.destroy()
         self.widget_list_dataPersonal = []
@@ -78,20 +79,20 @@ class Reporteria:
         if results is not None:
              listColumnas2 = list(column_names2)
              for i in range(len(results)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
+                etiNoResultado = ct.CTkLabel(second_frame, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
                 etiNoResultado.pack()
                 self.widget_list_dataPersonal.append(etiNoResultado)
                 texto = ""
                 for j in range(len(results[i])):
                     texto = texto + f"{listColumnas2[j]}: {results[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
+                etiResultado = ct.CTkLabel(second_frame, text=texto)
                 etiResultado.pack()
                 self.widget_list_dataPersonal.append(etiResultado) 
         else:
             mensaje = "No se han encontrado resultados"
             em.ErrorMessage(self.win, mensaje)
 
-    def pacientesMasAsistencias(self):
+    def pacientesMasAsistencias(self, second_frame):
         for widget in self.widget_list_dataPersonal:
             widget.destroy()
         self.widget_list_dataPersonal = []
@@ -101,28 +102,28 @@ class Reporteria:
         if results is not None:
              listColumnas3 = list(column_names3)
              for i in range(len(results)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
+                etiNoResultado = ct.CTkLabel(second_frame, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
                 etiNoResultado.pack()
                 self.widget_list_dataPersonal.append(etiNoResultado)
                 texto = ""
                 for j in range(len(results[i])):
                     texto = texto + f"{listColumnas3[j]}: {results[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
+                etiResultado = ct.CTkLabel(second_frame, text=texto)
                 etiResultado.pack()
                 self.widget_list_dataPersonal.append(etiResultado) 
         else:
             mensaje = "No se han encontrado resultados"
             em.ErrorMessage(self.win, mensaje)
 
-    def medicinasPuntoTerminarse(self):
+    def medicinasPuntoTerminarse(self, second_frame):
         for widget in self.widget_list_dataPersonal:
             widget.destroy()
         self.widget_list_dataPersonal = []
         var_wait = IntVar()
         #crear un entry para que se ingrese el id del establecimiento
-        etiEstablecimiento = ct.CTkLabel(self.win, text="Ingrese el id del establecimiento:", font=('Arial', 12, 'bold'))
-        inputEstablecimiento = ct.CTkEntry(self.win)
-        btnEstablecimiento = ct.CTkButton(self.win, text="Aceptar", command= lambda: var_wait.set(1))
+        etiEstablecimiento = ct.CTkLabel(second_frame, text="Ingrese el id del establecimiento:", font=('Arial', 12, 'bold'))
+        inputEstablecimiento = ct.CTkEntry(second_frame)
+        btnEstablecimiento = ct.CTkButton(second_frame, text="Aceptar", command= lambda: var_wait.set(1))
         etiEstablecimiento.pack()
         self.widget_list_dataPersonal.append(etiEstablecimiento)
         inputEstablecimiento.pack()
@@ -136,20 +137,20 @@ class Reporteria:
         if results is not None:
              listColumnas4 = list(column_names4)
              for i in range(len(results)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
+                etiNoResultado = ct.CTkLabel(second_frame, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
                 etiNoResultado.pack()
                 self.widget_list_dataPersonal.append(etiNoResultado)
                 texto = ""
                 for j in range(len(results[i])):
                     texto = texto + f"{listColumnas4[j]}: {results[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
+                etiResultado = ct.CTkLabel(second_frame, text=texto)
                 etiResultado.pack() 
                 self.widget_list_dataPersonal.append(etiResultado)
         else:
             mensaje = "No se han encontrado resultados"
             em.ErrorMessage(self.win, mensaje)
 
-    def unidadesSaludMasPacientes(self):
+    def unidadesSaludMasPacientes(self, second_frame):
         for widget in self.widget_list_dataPersonal:
             widget.destroy()
         self.widget_list_dataPersonal = []
@@ -159,13 +160,13 @@ class Reporteria:
         if results is not None:
              listColumnas5 = list(column_names5)
              for i in range(len(results)):
-                etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
+                etiNoResultado = ct.CTkLabel(second_frame, text=f"Resultado {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
                 etiNoResultado.pack()
                 self.widget_list_dataPersonal.append(etiNoResultado)
                 texto = ""
                 for j in range(len(results[i])):
                     texto = texto + f"{listColumnas5[j]}: {results[i][j]} "
-                etiResultado = ct.CTkLabel(self.win, text=texto)
+                etiResultado = ct.CTkLabel(second_frame, text=texto)
                 etiResultado.pack()
                 self.widget_list_dataPersonal.append(etiResultado) 
         else:
