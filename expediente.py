@@ -6,26 +6,27 @@ from editarInfoUsuario import EditarInfoUsuario
 from errorMessage import ErrorMessage
 from InfoPaciente import infoPaciente
 from Reporteria import Reporteria
+import customtkinter as ct
 
 class ExpedienteWindow:
     def __init__(self, parent, administrador, encargado_bodega):
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Expediente")
-        etiTitle = Label(self.win, text="Expediente", font=("Arial", 20, "bold"))
+        etiTitle = ct.CTkLabel(self.win, text="Expediente", font=("Arial", 20, "bold"))
         
-        etiIdPaciente = Label(self.win, text="Id del paciente")
+        etiIdPaciente = ct.CTkLabel(self.win, text="Id del paciente")
         
-        inputIdPaciente = Entry(self.win)
+        inputIdPaciente = ct.CTkEntry(self.win)
         
-        buttonBuscar = Button(self.win, text="Buscar", command= lambda: self.buscarPaciente(inputIdPaciente), width=20)
+        buttonBuscar = ct.CTkButton(self.win, text="Buscar", command= lambda: self.buscarPaciente(inputIdPaciente), width=200)
 
-        buttonInfoPaciente = Button(self.win, text="Información de paciente", command= lambda: infoPaciente(self.win), width=20)
+        buttonInfoPaciente = ct.CTkButton(self.win, text="Información de paciente", command= lambda: infoPaciente(self.win), width=200)
 
-        buttonReporteria = Button(self.win, text="Reporteria general", command= lambda: Reporteria(self.win), width=20)
+        buttonReporteria = ct.CTkButton(self.win, text="Reporteria general", command= lambda: Reporteria(self.win), width=200)
 
-        buttonEditarUsuario = Button(self.win, text="Editar Usuario", command= lambda: EditarInfoUsuario(self.win), width=20)
-        buttonEncargadoBodega = Button(self.win, text="Encargado Bodega", command= lambda: Bodega(self.win), width=20)
+        buttonEditarUsuario = ct.CTkButton(self.win, text="Editar Usuario", command= lambda: EditarInfoUsuario(self.win), width=200)
+        buttonEncargadoBodega = ct.CTkButton(self.win, text="Encargado Bodega", command= lambda: Bodega(self.win), width=200)
         
         etiTitle.pack(pady=5)
         if (encargado_bodega == True):
@@ -41,7 +42,7 @@ class ExpedienteWindow:
             buttonInfoPaciente.pack(pady=5)
             buttonReporteria.pack(pady=5)
         
-        self.win.geometry("400x300")
+        self.win.geometry("500x500")
         
     def buscarPaciente(self, inputIdPaciente):
         query = f"select * from informacion_paciente('{inputIdPaciente.get()}')"

@@ -1,37 +1,40 @@
 from tkinter import *
 from errorMessage import ErrorMessage
 import connection as con
+import customtkinter as ct
 
 class IngresoMedico:
     def __init__(self, parent):
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Ingreso Medico")
+        etiTitle = ct.CTkLabel(self.win, text="Ingreso medico", font=("Arial", 20, "bold"))
         
-        etiNum_col = Label(self.win, text="Numero colegiado")
-        inputNum_col = Entry(self.win)
+        etiNum_col = ct.CTkLabel(self.win, text="Numero colegiado")
+        inputNum_col = ct.CTkEntry(self.win, width=200)
         
-        etiNombre = Label(self.win, text="Nombre")
-        inputNombre = Entry(self.win)
+        etiNombre = ct.CTkLabel(self.win, text="Nombre")
+        inputNombre = ct.CTkEntry(self.win, width=200)
         
-        etiApellido = Label(self.win, text="Apellido")
-        inputApellido = Entry(self.win)
+        etiApellido = ct.CTkLabel(self.win, text="Apellido")
+        inputApellido = ct.CTkEntry(self.win, width=200)
         
-        etiEspecialidad = Label(self.win, text="Especialidad")
-        inputEspecialidad = Entry(self.win)
+        etiEspecialidad = ct.CTkLabel(self.win, text="Especialidad")
+        inputEspecialidad = ct.CTkEntry(self.win, width=200)
         
-        etiTelefono = Label(self.win, text="Telefono")
-        inputTelefono = Entry(self.win)
+        etiTelefono = ct.CTkLabel(self.win, text="Telefono")
+        inputTelefono = ct.CTkEntry(self.win, width=200)
         
-        etiDireccion = Label(self.win, text="Direccion")
-        inputDireccion = Entry(self.win)
+        etiDireccion = ct.CTkLabel(self.win, text="Direccion")
+        inputDireccion = ct.CTkEntry(self.win, width=200)
         
-        etiEmail = Label(self.win, text="Email")
-        inputEmail = Entry(self.win)
+        etiEmail = ct.CTkLabel(self.win, text="Email")
+        inputEmail = ct.CTkEntry(self.win, width=200)
         
-        buttonSignup = Button(self.win, text="Signup", command= lambda: self.inputMedico(inputNum_col, inputNombre, inputApellido, inputEspecialidad, inputTelefono, inputDireccion, inputEmail))
-        buttonClose = Button(self.win, text="Close", command= lambda: self.close())
+        buttonSignup = ct.CTkButton(self.win, text="Signup", command= lambda: self.inputMedico(inputNum_col, inputNombre, inputApellido, inputEspecialidad, inputTelefono, inputDireccion, inputEmail), width=100)
+        buttonClose = ct.CTkButton(self.win, text="Close", command= lambda: self.close(), width=100)
         
+        etiTitle.pack()
         etiNum_col.pack()
         inputNum_col.pack()
         etiNombre.pack()
