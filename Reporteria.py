@@ -5,25 +5,42 @@ import customtkinter as ct
 
 class Reporteria:
     def __init__(self, parent):
-        self.widget_list_dataPersonal = []
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Reporteria")
         etiTitle = ct.CTkLabel(self.win, text="Reporteria", font=("Arial", 20, "bold"))
+        
+        main_frame = ct.CTkFrame(self.win)
+        main_frame.pack(fill=BOTH, expand=1)
+        
+        my_canvas = ct.CTkCanvas(main_frame)
+        my_canvas.pack(side=LEFT, fill=BOTH, expand=1)
+        
+        my_scrollbar = Scrollbar(main_frame, orient=VERTICAL, command=my_canvas.yview)
+        my_scrollbar.pack(side=RIGHT, fill=Y)
+        
+        my_canvas.configure(yscrollcommand=my_scrollbar.set)
+        my_canvas.bind('<Configure>', lambda e: my_canvas.configure(scrollregion = my_canvas.bbox("all")))
+        
+        
+        second_frame = ct.CTkFrame(my_canvas)
+        
+        my_canvas.create_window((0,0), window=second_frame, anchor="nw")
+
         self.widget_list_dataPersonal = []
 
-        buttonEnfermedadesMortales = ct.CTkButton(self.win, text="Enfermedades más mortales", command= lambda: self.enfermedadesMortales(), width=300)
-        buttonMedicosMasPacientes = ct.CTkButton(self.win, text="Médicos que más pacientes han atendido", command= lambda: self.medicosMasPacientes(), width=300)
-        buttonPacientesMasAsistencias = ct.CTkButton(self.win, text="Pacientes con más asistencias", command= lambda: self.pacientesMasAsistencias(), width=300)
-        buttonMedicinasPuntoTerminarse = ct.CTkButton(self.win, text="Insumos que están a punto de terminarse", command= lambda: self.medicinasPuntoTerminarse(), width=300)
-        buttonUnidadesSaludMasPacientes = ct.CTkButton(self.win, text="Unidades de salud que más pacientes atienden", command= lambda: self.unidadesSaludMasPacientes(), width=300)
+        buttonEnfermedadesMortales = ct.CTkButton(second_frame, text="Enfermedades más mortales", command= lambda: self.enfermedadesMortales(), width=300)
+        buttonMedicosMasPacientes = ct.CTkButton(second_frame, text="Médicos que más pacientes han atendido", command= lambda: self.medicosMasPacientes(), width=300)
+        buttonPacientesMasAsistencias = ct.CTkButton(second_frame, text="Pacientes con más asistencias", command= lambda: self.pacientesMasAsistencias(), width=300)
+        buttonMedicinasPuntoTerminarse = ct.CTkButton(second_frame, text="Insumos que están a punto de terminarse", command= lambda: self.medicinasPuntoTerminarse(), width=300)
+        buttonUnidadesSaludMasPacientes = ct.CTkButton(second_frame, text="Unidades de salud que más pacientes atienden", command= lambda: self.unidadesSaludMasPacientes(), width=300)
 
-        etiTitle.pack()
-        buttonEnfermedadesMortales.pack(pady=5)
-        buttonMedicosMasPacientes.pack(pady=5)
-        buttonPacientesMasAsistencias.pack(pady=5)
-        buttonMedicinasPuntoTerminarse.pack(pady=5)
-        buttonUnidadesSaludMasPacientes.pack(pady=5)
+        etiTitle.grid(row=0, column=0, padx=0, pady=5, sticky="nsew")
+        buttonEnfermedadesMortales.grid(row=1, column=0, padx=0, pady=5, sticky="nsew")
+        buttonMedicosMasPacientes.grid(row=2, column=0, padx=0, pady=5, sticky="nsew")
+        buttonPacientesMasAsistencias.grid(row=3, column=0, padx=0, pady=5, sticky="nsew")
+        buttonMedicinasPuntoTerminarse.grid(row=4, column=0, padx=0, pady=5, sticky="nsew")
+        buttonUnidadesSaludMasPacientes.grid(row=5, column=0, padx=0, pady=5, sticky="nsew")
  
         
         self.win.geometry("600x300")
