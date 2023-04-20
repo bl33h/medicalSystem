@@ -10,6 +10,7 @@ class infoPaciente:
         self.win = Toplevel(parent)
         self.win.title("Información de paciente")
         etiTitle = ct.CTkLabel(self.win, text="Información de paciente", font=("Arial", 20, "bold"))
+        self.widget_list_dataPersonal = []
         
         etiIdPaciente = ct.CTkLabel(self.win, text="Id del paciente")
         
@@ -39,6 +40,7 @@ class infoPaciente:
             for i in range(len(results1)):
                 etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado Informacion de paciente {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
                 etiNoResultado.pack(pady=5)
+                self.widget_list_dataPersonal.append(etiNoResultado)
                 texto = ""
                 for j in range(len(results1[i])):
                     if listColumnas1[j] == "sexo":
@@ -55,6 +57,7 @@ class infoPaciente:
                     texto = texto + f"{listColumnas1[j]}: {results1[i][j]} "
                 etiResultado = ct.CTkLabel(self.win, text=texto)
                 etiResultado.pack(pady=5)
+                self.widget_list_dataPersonal.append(etiResultado)
         else:
             mensaje = "No se ha encontrado la información del paciente"
             em.ErrorMessage(self.win, mensaje)
@@ -63,11 +66,13 @@ class infoPaciente:
             for i in range(len(results2)):
                 etiNoResultado = ct.CTkLabel(self.win, text=f"Resultado historial de enfermedades {i+1}:", text_color="#1e90ff", font=('Arial', 12, 'bold'))
                 etiNoResultado.pack(pady=5)
+                self.widget_list_dataPersonal.append(etiNoResultado)
                 texto = ""
                 for j in range(len(results2[i])):
                     texto = texto + f"{listColumnas2[j]}: {results2[i][j]} "
                 etiResultado = ct.CTkLabel(self.win, text=texto)
                 etiResultado.pack(pady=5)
+                self.widget_list_dataPersonal.append(etiResultado)
         else:
             mensaje = "No se ha encontrado el historial del paciente"
             em.ErrorMessage(self.win, mensaje)
