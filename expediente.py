@@ -15,11 +15,7 @@ class ExpedienteWindow:
         self.win.title("Expediente")
         etiTitle = ct.CTkLabel(self.win, text="Expediente", font=("Arial", 20, "bold"))
         
-        etiIdPaciente = ct.CTkLabel(self.win, text="Id del paciente")
         
-        inputIdPaciente = ct.CTkEntry(self.win)
-        
-        buttonBuscar = ct.CTkButton(self.win, text="Buscar", command= lambda: self.buscarPaciente(inputIdPaciente), width=200)
 
         buttonInfoPaciente = ct.CTkButton(self.win, text="Información de paciente", command= lambda: infoPaciente(self.win), width=200)
 
@@ -32,9 +28,6 @@ class ExpedienteWindow:
         if (encargado_bodega == True):
             buttonEncargadoBodega.pack(pady=5)
         elif (encargado_bodega == False):   
-            etiIdPaciente.pack()
-            inputIdPaciente.pack()
-            buttonBuscar.pack(pady=5)
             buttonInfoPaciente.pack(pady=5)
         if (administrador == True):
             buttonEditarUsuario.pack(pady=5)
