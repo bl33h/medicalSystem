@@ -3,25 +3,27 @@ from tkinter import messagebox
 from expediente import ExpedienteWindow
 import connection as con
 from signup import SignupWindow
+import customtkinter as ct
 
 
 def main():
     principalWindow()
    
    
-
 def principalWindow():
-    win = Tk()
+    win = ct.CTk()
+    ct.set_appearance_mode("light")
     win.title("Login")
-    etiTitle = Label(win, text="Login", font=("Arial", 20, "bold"))
-    etiUsername = Label(win, text="Username")
-    inputUsername = Entry(win)
+    etiTitle = ct.CTkLabel(win, text="Login", font=("Arial", 20, "bold"))
+    etiUsername = ct.CTkLabel(win, text="Username")
+    inputUsername = ct.CTkEntry(win)
     
-    etiPassword = Label(win, text="Password")
-    inputPassword = Entry(win, show = "*")
+    etiPassword = ct.CTkLabel(win, text="Password")
+    inputPassword = ct.CTkEntry(win, show = "*")
     
-    buttonLogin = Button(win, text="Login", command= lambda: login(inputPassword, inputUsername, win), width=15)
-    buttonCrearUsuario = Button(win, text="Crear Usuario", command= lambda: SignupWindow(win), width=15)
+    buttonLogin = ct.CTkButton(win, text="Login", command= lambda: login(inputPassword, inputUsername, win), width=100)
+    buttonCrearUsuario = ct.CTkButton(win, text="Crear Usuario", width=100, command= lambda: SignupWindow(win))
+    
     
     etiTitle.pack(pady=5)
     etiUsername.pack()
