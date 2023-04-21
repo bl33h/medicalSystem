@@ -40,6 +40,8 @@ class asignarInsumos:
         results = con.connect(query)
         if (results == ""):
             mensaje = "Se ha registrado correctamente"
+            query = f"select * from update_medicines({inputIdCaso.get()})"
+            results = con.connect(query)
             ErrorMessage(self.win, mensaje=mensaje)
             
         else:
