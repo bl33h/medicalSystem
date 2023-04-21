@@ -58,7 +58,7 @@ class transferirMedico:
             ErrorMessage(self.win, mensaje=mensaje)
         else:
             mensaje = "Ha ocurrido un error al registrar"
-            em.ErrorMessage(self.win, mensaje=mensaje)
+            ErrorMessage(self.win, mensaje=mensaje)
     
     def close(self):
         self.win.destroy()
