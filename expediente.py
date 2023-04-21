@@ -9,6 +9,7 @@ from Reporteria import Reporteria
 from ingresoMedico import IngresoMedico
 from ingresoPaciente import IngresoPaciente
 import customtkinter as ct
+import transferencias as t
 
 class ExpedienteWindow:
     def __init__(self, parent, administrador, encargado_bodega):
@@ -27,6 +28,8 @@ class ExpedienteWindow:
         buttonEncargadoBodega = ct.CTkButton(self.win, text="Encargado Bodega", command= lambda: Bodega(self.win), width=200)
         buttonIngresoMedico = ct.CTkButton(self.win, text="Ingreso Medico", command= lambda: IngresoMedico(self.win), width=200)
         buttonIngresoPaciente = ct.CTkButton(self.win, text="Ingreso Paciente", command= lambda: IngresoPaciente(self.win), width=200)
+        buttonTransferirMedico = ct.CTkButton(self.win, text="Transferir Medico", command= lambda: t.transferirMedico(self.win), width=200)
+
         
         
         etiTitle.pack(pady=5)
@@ -42,6 +45,7 @@ class ExpedienteWindow:
             buttonReporteria.pack(pady=5)
             buttonIngresoMedico.pack(pady=5)
             buttonIngresoPaciente.pack(pady=5)
+            buttonTransferirMedico.pack(pady=5)
         
         self.win.geometry("500x500")
         
