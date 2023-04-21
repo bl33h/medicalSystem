@@ -7,8 +7,7 @@ class ErrorMessage:
         self.win = Toplevel(parent)
         self.win.title("Error")
 
-        
-        etiError = ct.CTkLabel(self.win, text="ERROR: " + mensaje, font=("Arial", 20, "bold"), text_color="red")
+        etiError = ct.CTkLabel(self.win, text= mensaje, font=("Arial", 20, "bold"))
         
         buttonSalir = ct.CTkButton(self.win, text="Salir", command= lambda: self.close())
         

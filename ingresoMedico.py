@@ -31,7 +31,7 @@ class IngresoMedico:
         etiEmail = ct.CTkLabel(self.win, text="Email")
         inputEmail = ct.CTkEntry(self.win, width=200)
         
-        buttonSignup = ct.CTkButton(self.win, text="Signup", command= lambda: self.inputMedico(inputNum_col, inputNombre, inputApellido, inputEspecialidad, inputTelefono, inputDireccion, inputEmail), width=100)
+        buttonSignup = ct.CTkButton(self.win, text="Registrar", command= lambda: self.inputMedico(inputNum_col, inputNombre, inputApellido, inputEspecialidad, inputTelefono, inputDireccion, inputEmail), width=100)
         buttonClose = ct.CTkButton(self.win, text="Close", command= lambda: self.close(), width=100)
         
         etiTitle.pack(pady=5)
