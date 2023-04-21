@@ -54,7 +54,7 @@ def login(inputUsername, inputPassword, win):
     
     # None type data verification
     if results is not None and results[0][0] == 1:
-        ExpedienteWindow(win, results2, results3)
+        ExpedienteWindow(win, results2, results3, inputUsername)
         
     # Error message if credentials do not match
     else:

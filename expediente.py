@@ -15,7 +15,10 @@ import transferencias as t
 import insertarEnfermedades as i
 
 class ExpedienteWindow:
-    def __init__(self, parent, administrador, encargado_bodega):
+    def __init__(self, parent, administrador, encargado_bodega, inputUsername):
+        
+        con.funUsuario(inputUsername.get())
+        
         self.parent = parent
         self.win = Toplevel(parent)
         self.win.title("Opciones")
