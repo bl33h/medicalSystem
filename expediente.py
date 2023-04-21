@@ -13,6 +13,7 @@ from enfermedadPorPaciente import IngresoEnfermedades
 import customtkinter as ct
 import transferencias as t
 import insertarEnfermedades as i
+from asignacionInsumosCaso import asignarInsumos
 
 class ExpedienteWindow:
     def __init__(self, parent, administrador, encargado_bodega, inputUsername):
@@ -36,6 +37,7 @@ class ExpedienteWindow:
         buttonIngresoPaciente = ct.CTkButton(self.win, text="Ingreso Paciente", command= lambda: IngresoPaciente(self.win), width=200)
         buttonTransferirMedico = ct.CTkButton(self.win, text="Transferir Medico", command= lambda: t.transferirMedico(self.win), width=200)
         buttonIngresoEnfermedad = ct.CTkButton(self.win, text="Ingreso Enfermedad por Paciente", command= lambda: IngresoEnfermedades(self.win, idCaso = 0), width=200)
+        buttonAsignarInsumos = ct.CTkButton(self.win, text="Asignacion de insumos a caso", command= lambda: asignarInsumos(self.win, idCaso = 0), width=200)
 
         buttonIngresoCaso = ct.CTkButton(self.win, text="Ingreso Caso", command= lambda: IngresoCaso(self.win), width=200)
         
@@ -48,6 +50,7 @@ class ExpedienteWindow:
             buttonIngresoPaciente.pack(pady=5)
             buttonIngresoCaso.pack(pady=5)
             buttonIngresoEnfermedad.pack(pady=5)
+            buttonAsignarInsumos.pack(pady=5)
         if (administrador == True):
             buttonEditarUsuario.pack(pady=5)
             buttonEncargadoBodega.pack(pady=5)
@@ -58,6 +61,7 @@ class ExpedienteWindow:
             buttonTransferirMedico.pack(pady=5)
             buttonIngresoCaso.pack(pady=5)
             buttonIngresoEnfermedad.pack(pady=5)
+            buttonAsignarInsumos.pack(pady=5)
         
         self.win.geometry("500x500")
         
@@ -70,6 +74,3 @@ class ExpedienteWindow:
         else:
             mensaje = "No se ha encontrado el paciente"
             ErrorMessage(self.win, mensaje)
-    
-        
-        
