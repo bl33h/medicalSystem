@@ -3,6 +3,7 @@ import connection as con
 from errorMessage import ErrorMessage
 from datetime import datetime
 import customtkinter as ct
+from tkinter import messagebox
 
 class Bodega:
     def __init__(self, parent):
@@ -75,8 +76,8 @@ class Bodega:
         for i in range(len(results)):
             listResults = list(results[i])
                 
-        if (len(listResults) == 0):
-            ErrorMessage(second_frame, "No se ha encontrado nada")
+        if(len(listResults) == 0):
+            ErrorMessage = (second_frame, "No se ha encontrado nada")
             
         else:
             keys = [] #Permite tener valores repetidos en el diccionario
@@ -132,19 +133,30 @@ class Bodega:
         results = con.connect(queryResults) # Obtener los valores de las columnas
         
         if results is not None:
-            listColumnas = list(column_names)
-            for i in range(len(results)):
-                etiNoResultado = ct.CTkLabel(second_frame, text=f"Resultado {i+1}:", text_color="#1e90ff")
-                etiNoResultado.grid(row=contador, column=1)
-                self.widget_list_dataPersonal.append(etiNoResultado)
-                contador += 1
-                texto = ""
-                for j in range(len(results[i])):
-                    texto = texto + f"{listColumnas[j]}: {results[i][j]} "
-                etiResultado = ct.CTkLabel(second_frame, text=texto)
-                etiResultado.grid(row=contador, column=1)
-                self.widget_list_dataPersonal.append(etiResultado)
-                contador += 1
+                listColumnas = list(column_names)
+        for i in range(len(results)):
+            etiNoResultado = Label(second_frame, text=f"Resultado {i+1}:", fg="#1e90ff")
+            etiNoResultado.grid(row=contador, column=1)
+            self.widget_list_dataPersonal.append(etiNoResultado)
+            contador += 1
+            texto = ""
+            for j in range(len(results[i])):
+                texto = texto + f"{listColumnas[j]}: {results[i][j]} "
+            etiResultado = Label(second_frame, text=texto)
+            etiResultado.grid(row=contador, column=1)
+            self.widget_list_dataPersonal.append(etiResultado)
+            contador += 1
+        query = f"select* from generar_alertas('{inputIdEstablecimiento.get()}');" # Generador de alertas
+        alertas = con.connect(query)
+        if alertas is not None:
+            for alerta in alertas:
+                tipo_alerta = alerta[0]
+                if tipo_alerta != "Vigente": # Solamente si el estado es diferente a vigente
+                    nombre_insumo = alerta[1]
+                    fecha_de_vencimiento = alerta[2]
+                    cantidad = alerta[3]
+                    messagebox.showinfo("¡Alerta!", f"El insumo: {nombre_insumo}\nSe encuentra: {tipo_alerta}\nFecha de vencimiento: {fecha_de_vencimiento}\nCantidad: {cantidad}\n")
+
         else:
             mensaje = "No se ha encontrado nada"
             ErrorMessage(self.win, mensaje)
