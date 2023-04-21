@@ -6,14 +6,15 @@ from editarInfoUsuario import EditarInfoUsuario
 from errorMessage import ErrorMessage
 from InfoPaciente import infoPaciente
 from Reporteria import Reporteria
+from ingresoMedico import IngresoMedico
 import customtkinter as ct
 
 class ExpedienteWindow:
     def __init__(self, parent, administrador, encargado_bodega):
         self.parent = parent
         self.win = Toplevel(parent)
-        self.win.title("Expediente")
-        etiTitle = ct.CTkLabel(self.win, text="Expediente", font=("Arial", 20, "bold"))
+        self.win.title("Opciones")
+        etiTitle = ct.CTkLabel(self.win, text="Opciones", font=("Arial", 20, "bold"))
         
         
 
@@ -23,6 +24,7 @@ class ExpedienteWindow:
 
         buttonEditarUsuario = ct.CTkButton(self.win, text="Editar Usuario", command= lambda: EditarInfoUsuario(self.win), width=200)
         buttonEncargadoBodega = ct.CTkButton(self.win, text="Encargado Bodega", command= lambda: Bodega(self.win), width=200)
+        buttonIngresoMedico = ct.CTkButton(self.win, text="Ingreso Medico", command= lambda: IngresoMedico(self.win), width=200)
         
         etiTitle.pack(pady=5)
         if (encargado_bodega == True):
@@ -34,6 +36,7 @@ class ExpedienteWindow:
             buttonEncargadoBodega.pack(pady=5)
             buttonInfoPaciente.pack(pady=5)
             buttonReporteria.pack(pady=5)
+            buttonIngresoMedico.pack(pady=5)
         
         self.win.geometry("500x500")
         
