@@ -9,6 +9,7 @@ from Reporteria import Reporteria
 from ingresoMedico import IngresoMedico
 from ingresoPaciente import IngresoPaciente
 from ingresoCaso import IngresoCaso
+from enfermedadPorPaciente import IngresoEnfermedades
 import customtkinter as ct
 import transferencias as t
 import insertarEnfermedades as i
@@ -31,8 +32,7 @@ class ExpedienteWindow:
         buttonIngresoMedico = ct.CTkButton(self.win, text="Ingreso Medico", command= lambda: IngresoMedico(self.win), width=200)
         buttonIngresoPaciente = ct.CTkButton(self.win, text="Ingreso Paciente", command= lambda: IngresoPaciente(self.win), width=200)
         buttonTransferirMedico = ct.CTkButton(self.win, text="Transferir Medico", command= lambda: t.transferirMedico(self.win), width=200)
-        buttonInsertarEnfermedades = ct.CTkButton(self.win, text="Insertar Enfermedades", command= lambda: i.insertarEnfermedades(self.win), width=200)
-
+        buttonIngresoEnfermedad = ct.CTkButton(self.win, text="Ingreso Enfermedad por Paciente", command= lambda: IngresoEnfermedades(self.win, idCaso = 0), width=200)
 
         buttonIngresoCaso = ct.CTkButton(self.win, text="Ingreso Caso", command= lambda: IngresoCaso(self.win), width=200)
         
@@ -44,7 +44,7 @@ class ExpedienteWindow:
             buttonInfoPaciente.pack(pady=5)
             buttonIngresoPaciente.pack(pady=5)
             buttonIngresoCaso.pack(pady=5)
-            buttonInsertarEnfermedades.pack(pady=5)
+            buttonIngresoEnfermedad.pack(pady=5)
         if (administrador == True):
             buttonEditarUsuario.pack(pady=5)
             buttonEncargadoBodega.pack(pady=5)
@@ -53,7 +53,8 @@ class ExpedienteWindow:
             buttonIngresoMedico.pack(pady=5)
             buttonIngresoPaciente.pack(pady=5)
             buttonTransferirMedico.pack(pady=5)
-            buttonInsertarEnfermedades.pack(pady=5)
+            buttonIngresoCaso.pack(pady=5)
+            buttonIngresoEnfermedad.pack(pady=5)
         
         self.win.geometry("500x500")
         

@@ -15,7 +15,7 @@ class transferirMedico:
         etiNum_col = ct.CTkLabel(self.win, text="Numero colegiado")
         inputNum_col = ct.CTkEntry(self.win, width=200)
 
-        etiEstablecimientoOrigen = ct.CTkLabel(self.win, text="Id del establecimient de origen")
+        etiEstablecimientoOrigen = ct.CTkLabel(self.win, text="Id del establecimiento de origen")
         inputEstablecimientoOrigen = ct.CTkEntry(self.win, width=200)
 
         etiEstablecimientoDestino = ct.CTkLabel(self.win, text="Id del establecimiento de destino")
@@ -54,6 +54,8 @@ class transferirMedico:
         query = r"""insert into transferencias (num_col_medico, id_origen, id_destino, fecha_transferencia, descripcion) values('""" + inputNum_col.get() + r"""', '""" + inputEstablecimientoOrigen.get() + r"""', '""" + inputEstablecimientoDestino.get() + r"""', '""" + inputFecha.get() + r"""', '""" + inputDescripcion.get() + r"""');"""
         results = con.connect(query)
         if (results == ""):
+            query = f"insert into medico_trabaja_en_establecimiento (num_col_medico, id_establecimiento, fecha_de_contratacion) values ('{inputNum_col.get()}', '{inputEstablecimientoDestino.get()}', '{inputFecha.get()}');"
+            results = con.connect(query)
             mensaje = "Se ha registrado correctamente"
             ErrorMessage(self.win, mensaje=mensaje)
         else:

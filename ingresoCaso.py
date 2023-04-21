@@ -1,5 +1,6 @@
 from tkinter import *
 from errorMessage import ErrorMessage
+from enfermedadPorPaciente import IngresoEnfermedades
 import connection as con
 import customtkinter as ct
 
@@ -63,6 +64,7 @@ class IngresoCaso:
         else:
             mensaje = "Se ha registrado correctamente"
             ErrorMessage(self.win, mensaje=mensaje)
+            IngresoEnfermedades(self.win, results[0][0])
     
     def close(self):
         self.win.destroy()
