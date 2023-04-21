@@ -12,6 +12,7 @@ from ingresoCaso import IngresoCaso
 from enfermedadPorPaciente import IngresoEnfermedades
 import customtkinter as ct
 import transferencias as t
+import insertarEnfermedades as i
 
 class ExpedienteWindow:
     def __init__(self, parent, administrador, encargado_bodega):

@@ -5,7 +5,7 @@ class ErrorMessage:
     def __init__(self, parent, mensaje):
         self.parent = parent
         self.win = Toplevel(parent)
-        self.win.title("Error")
+        self.win.title("Advertencia")
 
         etiError = ct.CTkLabel(self.win, text= mensaje, font=("Arial", 20, "bold"))
         
