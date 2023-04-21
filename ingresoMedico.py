@@ -1,5 +1,6 @@
 from tkinter import *
 from errorMessage import ErrorMessage
+from asignarMedico import AsignarMedico
 import connection as con
 import customtkinter as ct
 
@@ -32,7 +33,9 @@ class IngresoMedico:
         inputEmail = ct.CTkEntry(self.win, width=200)
         
         buttonSignup = ct.CTkButton(self.win, text="Registrar", command= lambda: self.inputMedico(inputNum_col, inputNombre, inputApellido, inputEspecialidad, inputTelefono, inputDireccion, inputEmail), width=100)
+        buttonAsignar = ct.CTkButton(self.win, text="Asignar", command= lambda: AsignarMedico(self.win), width=100)
         buttonClose = ct.CTkButton(self.win, text="Close", command= lambda: self.close(), width=100)
+        
         
         etiTitle.pack(pady=5)
         etiNum_col.pack()
@@ -50,6 +53,7 @@ class IngresoMedico:
         etiEmail.pack()
         inputEmail.pack(pady=5)
         buttonSignup.pack(pady=5)
+        buttonAsignar.pack(pady=5)
         buttonClose.pack(pady=5)
 
         self.win.geometry("600x1000")

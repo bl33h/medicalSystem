@@ -28,6 +28,7 @@ class ExpedienteWindow:
         buttonIngresoMedico = ct.CTkButton(self.win, text="Ingreso Medico", command= lambda: IngresoMedico(self.win), width=200)
         buttonIngresoPaciente = ct.CTkButton(self.win, text="Ingreso Paciente", command= lambda: IngresoPaciente(self.win), width=200)
         
+        
         etiTitle.pack(pady=5)
         if (encargado_bodega == True):
             buttonEncargadoBodega.pack(pady=5)
