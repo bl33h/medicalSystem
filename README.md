@@ -37,7 +37,7 @@ The main features of the MedicalSystem application include:
 Reporting and Analytics: The system includes a reporting module that generates various reports for administrators. These reports provide insights into critical aspects of the medical system, such as the top diseases, doctors with the highest patient load, patients with the most frequent visits, and inventory status for different healthcare units.
 
 ## How To Use
-To clone and run this application, you'll need [Git](https://git-scm.com) installed on your computer. From your command line:
+To clone and run this application, you'll need [Git](https://git-scm.com) and [Python](https://www.python.org/downloads/) installed on your computer. From your command line:
 
 ⚠️ **Note:** The AWS database mentioned in this project is no longer running. However, you can still set up a local database or use a different cloud-based database service to store the application data. Please ensure you have a suitable database solution in place as indicated in the Entity Relationship Diagram.
 
