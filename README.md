@@ -20,11 +20,9 @@ MedicalSystem is a Python-based application that models a medical system and uti
   <br>
 </p>
 
-
 ## Files
 
 - src: the file that implements de solution.
-
 
 ## Features
 The main features of the MedicalSystem application include:
@@ -37,7 +35,6 @@ The main features of the MedicalSystem application include:
 - Medical Supplies and Inventory: The system allows for the management of medical supplies and inventory. It provides features for tracking the availability of medications, equipment, and other medical resources. The application generates alerts when supplies are running low or approaching expiration to ensure timely restocking.
 
 Reporting and Analytics: The system includes a reporting module that generates various reports for administrators. These reports provide insights into critical aspects of the medical system, such as the top diseases, doctors with the highest patient load, patients with the most frequent visits, and inventory status for different healthcare units.
-
 
 ## How To Use
 To clone and run this application, you'll need [Git](https://git-scm.com) installed on your computer. From your command line:
