@@ -47,7 +47,7 @@ To clone and run this application, you'll need [Git](https://git-scm.com) and [P
 $ git clone https://github.com/bl33h/medicalSystem
 
 # Install dependencies
-$ pip install tkinter #
+$ pip install tkinter # Repeat with all dependencies implemented in the project
 
 # Open the folder
 $ cd src
