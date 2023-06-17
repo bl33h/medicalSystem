@@ -16,7 +16,7 @@ MedicalSystem is a Python-based application that models a medical system and uti
 ## Entity Relationship Diagram
 <p align="center">
   <br>
-  <img src="https://i.imgur.com/pSyecVi.png" alt="erd" width="400">
+  <img src="https://i.imgur.com/pSyecVi.png" alt="erd" width="600">
   <br>
 </p>
 
