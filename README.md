@@ -25,7 +25,7 @@ MedicalSystem is a Python-based application that models a medical system and uti
 - src: the file that implements de solution.
 
 ## Features
-The main features of the MedicalSystem application include:
+The main features of the application include:
 
 - Database Setup: The system utilizes a PostgreSQL database to store all the necessary information. The database schema is designed to support the various entities involved in the medical system, such as doctors, patients, diseases, treatments, and healthcare facilities.
 - User Authentication: The application includes a sign-in and login functionality to ensure secure access to the system. Users belonging to hospitals, healthcare centers, or clinics can authenticate themselves and access the system based on their roles and permissions.
