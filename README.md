@@ -39,7 +39,7 @@ Reporting and Analytics: The system includes a reporting module that generates v
 ## How To Use
 To clone and run this application, you'll need [Git](https://git-scm.com) installed on your computer. From your command line:
 
-⚠️ **Note:** The AWS database mentioned in this project is no longer running. However, you can still set up a local database or use a different cloud-based database service to store the application data.
+⚠️ **Note:** The AWS database mentioned in this project is no longer running. However, you can still set up a local database or use a different cloud-based database service to store the application data. Please ensure you have a suitable database solution in place as indicated in the Entity Relationship Diagram.
 
 ...
 ```bash
