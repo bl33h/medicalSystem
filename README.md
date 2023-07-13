@@ -39,7 +39,6 @@ Reporting and Analytics: The system includes a reporting module that generates v
 ## How To Use
 To clone and run this application, you'll need [Git](https://git-scm.com) and [Python](https://www.python.org/downloads/) installed on your computer. From your command line:
 
-...
 ```bash
 # Clone this repository
 $ git clone https://github.com/bl33h/medicalSystem
